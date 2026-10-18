@@ -10,6 +10,9 @@ Read the [architecture definition](https://github.com/eosrio/hyperion-tools/blob
 [ADRs](https://github.com/eosrio/hyperion-tools/tree/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/adr)
 and [release roadmap](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/roadmap/hyperion-4.5.md).
 
+[SDK, runtime and adapter source homes](https://github.com/eosrio/hyperion-tools/blob/458e1127b99c025251055e160129010edcecc78a/docs/architecture/hyperion-4.5-component-homes.md)
+define package ownership; assigned homes are not implementation or release-support claims.
+
 ## Scope
 
 - Select protocol providers before decoding affected data. Keep chain-specific conventions out
