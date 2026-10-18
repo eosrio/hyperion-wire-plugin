@@ -25,6 +25,9 @@ and [release roadmap](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba81
 
 ## First work
 
+Start from the [Wire qualification profile](https://github.com/eosrio/hyperion-tools/issues/22).
+Coordinate delivery through [release issue #24](https://github.com/eosrio/hyperion-tools/issues/24).
+
 P08 in the approved issue batch defines the reproducible Wire testnet profile before extension
 implementation. The [protocol investigation](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/architecture/hyperion-4.5-wire-protocol.md)
 records source findings and qualification limits.
