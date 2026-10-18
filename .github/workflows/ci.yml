@@ -1,0 +1,20 @@
+name: Repository checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required documents and local links
+        run: python3 scripts/check-docs.py
+      - name: Check whitespace
+        run: git diff --check $(git hash-object -t tree /dev/null) HEAD
