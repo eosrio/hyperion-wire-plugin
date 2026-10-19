@@ -18,7 +18,9 @@
       "types": "./dist/provider.d.ts",
       "import": "./dist/provider.js"
     },
-    "./protocol-provider.json": "./dist/protocol-provider.json"
+    "./protocol-provider.json": "./dist/protocol-provider.json",
+    "./protocol-node-artifact.json": "./dist/protocol-node-artifact.json",
+    "./protocol-rust-artifact.json": "./dist/protocol-rust-artifact.json"
   },
   "files": [
     "dist/",

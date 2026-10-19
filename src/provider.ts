@@ -50,7 +50,18 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
         decodeResult: bytes => ship.decodeResult(bytes),
         decodeBlock: bytes => ship.decodeBlock(bytes),
         decodeTraces: bytes => ship.decodeTraces(bytes),
-        decodeDeltas: bytes => ship.decodeDeltas(bytes).deltas,
+        decodeDeltas(bytes) {
+          const deltas = ship.decodeDeltas(bytes).deltas;
+          codecAssert(Array.isArray(deltas), 'Invalid delta collection');
+          for (const delta of deltas) {
+            codecAssert(Array.isArray(delta) && delta.length === 2 && delta[0] === 'table_delta_v0',
+              'Unsupported required delta version', 'unsupported_feature');
+            const table = plainObject(delta[1]);
+            codecAssert(typeof table.name === 'string' && knownStreams.has(table.name),
+              `Unsupported required Wire delta stream: ${String(table.name)}`, 'unsupported_feature');
+          }
+          return deltas;
+        },
         decodeRow(stream, bytes) {
           codecAssert(knownStreams.has(stream), `Unsupported required Wire delta stream: ${stream}`, 'unsupported_feature');
           return codec.decode(stream, bytes);

@@ -90,6 +90,9 @@ test('selected SDK session decodes the complete captured bundle and validates ev
   const codec = createWireValueCodec(handshake, profile);
   assert.equal(hex(session.encodeRequest(codec.decode('request', bytes(request.hex)))), request.hex);
   assert.throws(() => session.decodeRow('future_required_stream', new Uint8Array()), /Unsupported required/);
+  assert.throws(() => session.decodeDeltas(codec.encode('table_delta[]', [
+    ['table_delta_v0', {name: 'future_required_stream', rows: []}]
+  ])), /Unsupported required/, 'unknown empty streams must fail before downstream handler selection');
   assert.throws(() => provider.normalizeDelta({stream: 'future_required_stream', present: true, raw: new Uint8Array(), value: {}}, {}), /Unsupported required/);
 });
 
