@@ -97,3 +97,9 @@ The [SDK protocol provider](docs/provider.md) exposes the Wire codecs and
 deployment-bound KV normalization through one coordinated Node/Rust package.
 Its inert descriptor is verified before loading executable code. Current pins
 remain engineering inputs; release and live testnet qualification are pending.
+
+[Issue #8](https://github.com/eosrio/hyperion-wire-plugin/issues/8) adds
+[ABI source observations](docs/abi-observations.md) from unfiltered SHiP input. Both components
+preserve action execution evidence, native ABI mutations and block-end account state as separate
+facts. These observations feed the host journal; canonical coverage and proof-carrying decoding
+remain open in [History API #213](https://github.com/eosrio/hyperion-history-api/issues/213).

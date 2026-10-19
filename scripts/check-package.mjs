@@ -56,7 +56,7 @@ try {
   const [packed] = entries;
   assert(packed && packed.filename && packed.files?.length, 'npm pack did not return package contents');
   const paths = new Set(packed.files.map((file) => file.path));
-  for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/codec/abi.js', 'dist/ship.js', 'scripts/codec-driver.mjs', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'crates/wire-protocol/src/codec/value.rs', 'fixtures/protocol-vectors.json', 'fixtures/codec/ship-capture.json']) {
+  for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/codec/abi.js', 'dist/ship.js', 'dist/abi-observations.js', 'scripts/codec-driver.mjs', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'crates/wire-protocol/src/codec/value.rs', 'crates/wire-protocol/src/codec/observations.rs', 'fixtures/protocol-vectors.json', 'fixtures/codec/ship-capture.json', 'fixtures/abi-observations/vectors.json']) {
     assert(paths.has(name), `Missing coordinated package member: ${name}`);
   }
   assert(![...paths].some((name) => name.startsWith('node_modules/') || name.startsWith('target/')));
@@ -93,6 +93,15 @@ for (const component of descriptor.profiles[0].components) {
   for (const file of manifest.files) assert.equal(createHash('sha256').update(readFileSync(new URL(file.path, installedRoot))).digest('hex'), file.sha256, file.path);
 }
 assert.equal(createProtocolProvider(descriptor.profiles[0].id).profileId, descriptor.profiles[0].id);
+const observations = JSON.parse(readFileSync(new URL('fixtures/abi-observations/vectors.json', installedRoot)));
+for (const selected of descriptor.profiles) {
+  const vector = observations.vectors.find(vector => vector.profileId === selected.id && vector.expected?.deployments.length > 0);
+  assert(vector, 'Missing packed mutation fixture');
+  const input = {traces: vector.input.traces, accountRows: vector.input.accountRows.map(row => ({...row, raw: new Uint8Array(Buffer.from(row.rawHex, 'hex'))}))};
+  const provider = createProtocolProvider(selected.id);
+  assert.deepEqual(provider.observeBlockAbi(input, vector.source), vector.expected);
+  assert.throws(() => provider.observeBlockAbi({traces: undefined, accountRows: []}, vector.source), /Missing required/);
+}
 `);
   run([join(stage, 'consumer.mjs')], stage);
   writeFileSync(join(stage, 'consumer.ts'), `import {slotToUnixMilliseconds} from '@eosrio/hyperion-wire-plugin';\nconst timestamp: number = slotToUnixMilliseconds(1);\nvoid timestamp;\n`);

@@ -49,6 +49,13 @@ fn run(op: &Value) -> Value {
         Some("encodeValue") => {
             encode_value(&op["abi"], name, &op["value"], &profile).map(|bytes| json!(hex(&bytes)))
         }
+        Some("observe_block_abi") => {
+            hyperion_wire_protocol::codec::observations::observe_block_abi(
+                &op["input"],
+                &op["source"],
+                &profile,
+            )
+        }
         _ => panic!("unsupported codec operation"),
     };
     match result {

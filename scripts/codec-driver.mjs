@@ -1,5 +1,7 @@
 import {readFile} from 'node:fs/promises';
 import {decodeWireAbi, encodeWireAbi, createWireValueCodec, decodeWireShipDeltas, resolveCodecProfile, WireCodecError} from '../dist/index.js';
+import {createProtocolProvider} from '../dist/provider.js';
+import {fromHex} from '../dist/codec/binary.js';
 
 let source = '';
 if (process.argv[2]) source = await readFile(process.argv[2], 'utf8');
@@ -20,6 +22,15 @@ const output = input.map(operation => {
       case 'decodeValue': result = createWireValueCodec(operation.abi, profile).decode(operation.typeName, bytes()); break;
       case 'decodeDeltas': result = decodeWireShipDeltas(operation.abi, bytes(), profile); break;
       case 'encodeValue': result = Buffer.from(createWireValueCodec(operation.abi, profile).encode(operation.typeName, operation.value)).toString('hex'); break;
+      case 'observe_block_abi': {
+        const value = operation.input;
+        const accountRows = Array.isArray(value?.accountRows)
+          ? value.accountRows.map(row => row && typeof row === 'object' && !Array.isArray(row)
+            ? {ordinal: row.ordinal, present: row.present, raw: fromHex(row.rawHex), value: row.value} : row)
+          : value?.accountRows;
+        result = createProtocolProvider(profile.id).observeBlockAbi({traces: value?.traces, accountRows}, operation.source);
+        break;
+      }
       default: throw new Error('Unsupported codec operation');
     }
     return {result};

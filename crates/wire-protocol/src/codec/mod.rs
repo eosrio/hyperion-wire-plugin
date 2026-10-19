@@ -5,6 +5,7 @@
 
 mod binary;
 mod metadata;
+pub mod observations;
 mod protobuf;
 mod scalar;
 pub mod ship;
