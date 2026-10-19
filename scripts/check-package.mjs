@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {mkdtempSync, readFileSync, rmSync, writeFileSync, cpSync, mkdirSync, unlinkSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {basename, dirname, join, resolve, sep} from 'node:path';
 import {createRequire} from 'node:module';
@@ -17,6 +17,30 @@ function run(args, cwd = root) {
   return result.stdout;
 }
 try {
+  // Reproduce pacote's source-archive preparation, including the second prepare
+  // with no inherited Git context. These are source/build receipts, not defaults.
+  const archive = join(stage, 'source-archive');
+  mkdirSync(archive);
+  for (const path of ['src', 'scripts', 'crates', 'dist', 'package.json', 'package-lock.json', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock']) {
+    cpSync(join(root, path), join(archive, path), {recursive: true});
+  }
+  const revision = JSON.parse(readFileSync(join(root, 'dist/protocol-node-artifact.json'), 'utf8')).sourceRevision;
+  const archiveEnv = {...process.env, _PACOTE_NO_PREPARE_: `git+https://github.com/eosrio/hyperion-wire-plugin.git#${revision}`};
+  const prepare = env => spawnSync(process.execPath, ['scripts/build-protocol-descriptor.mjs'], {cwd: archive, env, encoding: 'utf8', timeout: 30_000});
+  assert.equal(prepare(archiveEnv).status, 0, 'first archive prepare requires the actual resolved pin');
+  const secondEnv = {...process.env}; delete secondEnv._PACOTE_NO_PREPARE_;
+  assert.equal(prepare(secondEnv).status, 0, 'second archive prepare must verify unchanged source and output receipts');
+  const source = join(archive, 'src/provider.ts'); const originalSource = readFileSync(source);
+  writeFileSync(source, Buffer.concat([originalSource, Buffer.from('\n// changed source\n')]));
+  assert.notEqual(prepare(secondEnv).status, 0, 'a receipt must not conceal changed source');
+  writeFileSync(source, originalSource);
+  const output = join(archive, 'dist/provider.js'); const originalOutput = readFileSync(output);
+  writeFileSync(output, Buffer.concat([originalOutput, Buffer.from('\n// changed output\n')]));
+  assert.notEqual(prepare(secondEnv).status, 0, 'a receipt must not conceal changed emitted code');
+  writeFileSync(output, originalOutput);
+  writeFileSync(join(archive, '.git'), 'gitdir: missing-git-metadata\n');
+  assert.notEqual(prepare(archiveEnv).status, 0, 'a damaged Git checkout must not downgrade to archive provenance');
+  unlinkSync(join(archive, '.git'));
   const descriptor = JSON.parse(run([npmCli, 'pack', '--json', '--ignore-scripts', '--pack-destination', stage]));
   // npm versions in the supported Node matrix return either an array or a name-keyed object.
   const entries = Array.isArray(descriptor) ? descriptor : Object.values(descriptor);

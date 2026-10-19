@@ -10,7 +10,11 @@ factory. It declares the complete Node/Rust component set for each engineering
 profile. The host verifies both artifact manifests and every listed file before
 executable import, then checks SDK and host compatibility and exact component
 pins. The generator hashes actual packaged bytes; the descriptor is generated
-during build/prepare from the exact Git revision. Builds containing uncommitted
+during build/prepare from the exact Git revision. npm's source-archive prepare
+uses its unique resolved Git pin; a subsequent prepare without that environment
+must verify unchanged source and emitted-file receipts before retaining the pin.
+Missing or ambiguous pins, changed files and damaged Git metadata fail closed.
+Builds containing uncommitted
 source have `sourceModified: true` and must be rejected for activation.
 
 The Node artifact contains emitted JavaScript/declarations, package metadata and
