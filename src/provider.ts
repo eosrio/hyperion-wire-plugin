@@ -25,6 +25,13 @@ const kvAbi = {version: 'sysio::abi/1.3', structs: [
 const knownStreams = new Set(['account', 'account_metadata', 'code', 'contract_row_kv', 'contract_index_kv',
   'global_property', 'protocol_state', 'permission', 'permission_link', 'resource_limits', 'resource_usage',
   'resource_limits_state', 'resource_limits_config']);
+const unprojectedStreams = new Map([
+  ['account_metadata', 'Account code metadata has no enabled history projection; ABI deployments come from account rows'],
+  ['code', 'Raw WASM code has no enabled history projection'],
+  ['protocol_state', 'Consensus protocol state has no enabled history projection'],
+  ['resource_limits_config', 'Resource configuration has no enabled history projection'],
+  ['resource_limits_state', 'Global resource limit state has no enabled history projection'],
+]);
 
 /** Construct only after the host has verified the inert descriptor and installed artifact digests. */
 export function createProtocolProvider(profileId: string): ProtocolProvider<WireAbi> {
@@ -71,6 +78,8 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
     normalizeDelta(input, context) {
       codecAssert(knownStreams.has(input.stream), `Unsupported required Wire delta stream: ${input.stream}`, 'unsupported_feature');
       codecAssert(typeof input.present === 'boolean', 'Invalid delta presence flag');
+      const reason = unprojectedStreams.get(input.stream);
+      if (reason) return {kind: 'ignore', reason};
       if (input.stream !== 'contract_row_kv' && input.stream !== 'contract_index_kv') {
         return {kind: 'passthrough', value: input.value};
       }

@@ -1,6 +1,6 @@
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-import {readFileSync, readdirSync, writeFileSync, realpathSync, existsSync} from 'node:fs';
+import {readFileSync, readdirSync, writeFileSync, realpathSync, existsSync, lstatSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {join} from 'node:path';
 
@@ -17,6 +17,10 @@ const sourceFiles = members(['package.json', 'package-lock.json', 'protocol-prof
   ...walk('src'), ...walk('scripts'), ...walk('crates')]);
 const outputFiles = members(walk('dist').filter(path => /\.(?:js|ts|map)$/.test(path)));
 const receiptPath = join(root, 'dist/protocol-source-receipt.json');
+const hasOwnGitEntry = () => {
+  try {lstatSync(join(root, '.git')); return true;}
+  catch (error) {if (error.code === 'ENOENT') return false; throw error;}
+};
 const git = args => execFileSync('git', args, {cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: {...process.env, GIT_OPTIONAL_LOCKS: '0'}}).trim();
 const canonical = path => {const value = realpathSync(path); return process.platform === 'win32' ? value.toLowerCase() : value;};
 let sourceRevision, sourceModified, sourceOrigin;
@@ -28,7 +32,7 @@ try {
   sourceOrigin = 'git-checkout';
 } catch (error) {
   // An existing but unreadable/corrupt Git checkout is never a clean archive.
-  if (existsSync(join(root, '.git'))) throw new Error('Cannot verify this provider Git checkout', {cause: error});
+  if (hasOwnGitEntry()) throw new Error('Cannot verify this provider Git checkout', {cause: error});
   // pacote may download the exact GitHub source archive, which has no .git.
   // Its preparation subprocess receives the resolved Git URL list in this
   // variable (pacote/lib/git.js). Accept only this package's unique exact pin.

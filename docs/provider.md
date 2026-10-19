@@ -24,7 +24,11 @@ Both are installed through one operator package. These hashes detect mismatched
 installed artifacts; operator trust and executable installation remain separate.
 
 The host decodes every required delta stream before choosing downstream handlers.
-Unknown streams fail explicitly. Known non-KV streams pass through. Primary and
+Unknown streams fail explicitly, including empty streams. Known streams with
+existing host projections pass through. `account_metadata`, `code`,
+`protocol_state`, `resource_limits_config` and `resource_limits_state` have no enabled host history
+projection and are explicitly ignored with reasons; their input stays in the raw
+frame/replay path. Primary and
 secondary KV streams request a position-bound contract ABI from the host using
 `abi-required`, then normalize against that exact deployment. No current/head ABI
 fallback exists. The provider checks deployment interval, binary ABI metadata,

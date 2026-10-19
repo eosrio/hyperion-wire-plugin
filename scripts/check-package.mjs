@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {mkdtempSync, readFileSync, rmSync, writeFileSync, cpSync, mkdirSync, unlinkSync} from 'node:fs';
+import {mkdtempSync, readFileSync, rmSync, writeFileSync, cpSync, mkdirSync, unlinkSync, symlinkSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {basename, dirname, join, resolve, sep} from 'node:path';
 import {createRequire} from 'node:module';
@@ -41,6 +41,14 @@ try {
   writeFileSync(join(archive, '.git'), 'gitdir: missing-git-metadata\n');
   assert.notEqual(prepare(archiveEnv).status, 0, 'a damaged Git checkout must not downgrade to archive provenance');
   unlinkSync(join(archive, '.git'));
+  try {
+    symlinkSync('missing-git-metadata', join(archive, '.git'), 'file');
+    assert.notEqual(prepare(archiveEnv).status, 0, 'a dangling Git entry must not downgrade to archive provenance');
+    unlinkSync(join(archive, '.git'));
+  } catch (error) {
+    if (process.platform !== 'win32' || error.code !== 'EPERM') throw error;
+    console.log('Dangling symlink setup needs Windows symlink privileges; Linux CI exercises this regression.');
+  }
   const descriptor = JSON.parse(run([npmCli, 'pack', '--json', '--ignore-scripts', '--pack-destination', stage]));
   // npm versions in the supported Node matrix return either an array or a name-keyed object.
   const entries = Array.isArray(descriptor) ? descriptor : Object.values(descriptor);

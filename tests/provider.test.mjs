@@ -110,6 +110,14 @@ test('sessions and profiles remain independent and require an explicit supported
   assert.throws(() => createProtocolProvider('unknown'), /Unknown Wire/);
 });
 
+test('known unprojected streams are explicitly declared instead of silently filtered by core', () => {
+  const provider = createProtocolProvider(codecProfiles[0].id);
+  for (const stream of ['account_metadata', 'code', 'protocol_state', 'resource_limits_config', 'resource_limits_state']) {
+    const result = provider.normalizeDelta({stream, present: true, raw: new Uint8Array(), value: {}}, {});
+    assert.equal(result.kind, 'ignore'); assert.ok(result.reason.length > 0);
+  }
+});
+
 test('inert descriptors bind both coordinated components to actual package file bytes', () => {
   const descriptor = json('dist/protocol-provider.json');
   const components = descriptor.profiles[0].components;
