@@ -91,3 +91,9 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
 Primitive conformance, host integration and release qualification are separate gates. The selected
 new testnet has not been provisioned or qualified by this implementation.
 Licensed under [MIT](LICENSE).
+# SDK integration
+
+The [SDK protocol provider](docs/provider.md) exposes the Wire codecs and
+deployment-bound KV normalization through one coordinated Node/Rust package.
+Its inert descriptor is verified before loading executable code. Current pins
+remain engineering inputs; release and live testnet qualification are pending.

@@ -39,6 +39,10 @@ try {
   writeFileSync(join(stage, 'consumer.mjs'), `
 import assert from 'node:assert/strict';
 import {slotToUnixMilliseconds, unixMillisecondsToSlot, normalizeKvRecord, createWireValueCodec, encodeWireAbi, decodeWireAbi} from '@eosrio/hyperion-wire-plugin';
+import {createProtocolProvider} from '@eosrio/hyperion-wire-plugin/provider';
+import descriptor from '@eosrio/hyperion-wire-plugin/protocol-provider.json' with {type: 'json'};
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import profile from '@eosrio/hyperion-wire-plugin/protocol-profile.json' with {type: 'json'};
 assert.equal(slotToUnixMilliseconds(0), profile.epochMilliseconds);
 assert.equal(unixMillisecondsToSlot(profile.epochMilliseconds + profile.slotMilliseconds), 1);
@@ -48,6 +52,15 @@ assert.equal(normalizeKvRecord(row,source).identity, 'wire-kv-v1:row:' + source.
 const abi = {version:'sysio::abi/1.3', structs:[{name:'row',base:'',fields:[{name:'slot',type:'block_timestamp_type'}]}]};
 const codec = createWireValueCodec(decodeWireAbi(encodeWireAbi(abi)));
 assert.deepEqual(codec.decode('row', new Uint8Array([0,0,0,0])), {slot:'2025-01-01T00:00:00.000'});
+const installedRoot = new URL('./node_modules/@eosrio/hyperion-wire-plugin/', import.meta.url);
+for (const component of descriptor.profiles[0].components) {
+  const manifestBytes = readFileSync(new URL('dist/protocol-' + component.runtime + '-artifact.json', installedRoot));
+  assert.equal(createHash('sha256').update(manifestBytes).digest('hex'), component.sha256);
+  const manifest = JSON.parse(manifestBytes);
+  assert.equal(manifest.sourceModified, false, 'packed activation requires a clean source revision');
+  for (const file of manifest.files) assert.equal(createHash('sha256').update(readFileSync(new URL(file.path, installedRoot))).digest('hex'), file.sha256, file.path);
+}
+assert.equal(createProtocolProvider(descriptor.profiles[0].id).profileId, descriptor.profiles[0].id);
 `);
   run([join(stage, 'consumer.mjs')], stage);
   writeFileSync(join(stage, 'consumer.ts'), `import {slotToUnixMilliseconds} from '@eosrio/hyperion-wire-plugin';\nconst timestamp: number = slotToUnixMilliseconds(1);\nvoid timestamp;\n`);

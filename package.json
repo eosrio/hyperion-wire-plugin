@@ -13,7 +13,12 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./protocol-profile.json": "./protocol-profile.json"
+    "./protocol-profile.json": "./protocol-profile.json",
+    "./provider": {
+      "types": "./dist/provider.d.ts",
+      "import": "./dist/provider.js"
+    },
+    "./protocol-provider.json": "./dist/protocol-provider.json"
   },
   "files": [
     "dist/",
@@ -25,12 +30,13 @@
     "docs/",
     "README.md",
     "LICENSE",
-    "scripts/codec-driver.mjs"
+    "scripts/codec-driver.mjs",
+    "scripts/build-protocol-descriptor.mjs"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node scripts/build-protocol-descriptor.mjs",
     "typecheck": "bun check -p tsconfig.json",
-    "test": "npm run build && node --test tests/protocol.test.mjs tests/codec-node.test.mjs tests/ship-deployment.test.mjs",
+    "test": "npm run build && node --test tests/protocol.test.mjs tests/codec-node.test.mjs tests/ship-deployment.test.mjs tests/provider.test.mjs",
     "test:cross": "node scripts/check-cross-language.mjs && node scripts/check-codecs.mjs",
     "test:package": "node scripts/check-package.mjs",
     "check:docs": "python scripts/check-docs.py",
@@ -46,6 +52,7 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
+    "@eosrio/hyperion-sdk": "git+https://github.com/eosrio/hyperion-sdk.git#c572faa8d75fdf2d46e7fc97e2e852e1ead5d6aa",
     "@bufbuild/protobuf": "2.16.0"
   }
 }
