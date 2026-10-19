@@ -3,8 +3,9 @@
 The EOS Rio Wire chain extension for Hyperion, coordinating required Node and Rust components
 as one operator-managed package.
 
-Status: Development scaffold for Hyperion 4.5. No plugin implementation or compatible release
-is provided by this initial repository. Maintained by EOS Rio.
+Status: Private development implementation of Wire timestamp and KV identity primitives for
+Hyperion 4.5. The Node and Rust components share an engineering profile and fixture corpus.
+This is not an activated Hyperion protocol provider or a compatible release. Maintained by EOS Rio.
 
 Read the [architecture definition](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/architecture/hyperion-4.5.md),
 [ADRs](https://github.com/eosrio/hyperion-tools/tree/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/adr)
@@ -26,17 +27,58 @@ define package ownership; assigned homes are not implementation or release-suppo
 - Native protocol changes may use controlled restarts; operators do not manage the Node and Rust
   pieces as separate plugins.
 
-## First work
+## Implemented development slice
+
+[Issue #1](https://github.com/eosrio/hyperion-wire-plugin/issues/1) supplies:
+
+- Exact conversions between uint32 block slots and Unix milliseconds for the pinned engineering
+  profile: 2025 epoch, 500 ms slots. Invalid, fractional, unaligned and out-of-range inputs fail.
+- Lossless identities for already-decoded primary and secondary KV primitives. Identity uses the
+  chain, raw account value, authoritative table/index ID and all key bytes. Table ID zero is valid.
+  Both record kinds retain payer, byte fields, deletion intent and supplied source/ABI provenance.
+- Equivalent Node and internal Rust implementations, a shared vector corpus, and packed-content
+  checks for the private source bundle. Rust is an internal component, not a second plugin install.
+
+The APIs are package-local development entry points, not the public SDK protocol-provider contract.
+They do not decode SHiP frames or binary contract ABIs, resolve ABI deployments, activate workers,
+write storage, recover forks or install native components. See [the primitive contract](docs/primitives.md)
+and [source/fixture provenance](docs/protocol-sources.md). Codec completeness and host integration
+are tracked in [#2](https://github.com/eosrio/hyperion-wire-plugin/issues/2) and
+[History API #212](https://github.com/eosrio/hyperion-history-api/issues/212).
+
+## Development checks
+
+Use TypeScript 7.0.2 and Bun 1.4.3 under the
+[shared toolchain policy](https://github.com/eosrio/hyperion-tools/blob/main/docs/architecture/hyperion-4.5-typescript-toolchain.md).
+Node 22/24 execute the emitted artifacts; Bun is the checker. Install from the committed npm
+lockfile and use the committed Cargo lockfile:
+
+```sh
+npm ci
+npm run typecheck
+npm test
+cargo test --locked
+npm run test:cross
+npm run test:package
+python scripts/check-docs.py
+```
+
+The package remains private. No version is published and no compatibility catalog claim is made.
+The source bundle is checked as one coordinated package; platform/native artifact distribution
+and operator activation remain [#3](https://github.com/eosrio/hyperion-wire-plugin/issues/3).
+
+## Qualification and next work
 
 Start from the [Wire qualification profile](https://github.com/eosrio/hyperion-tools/issues/22).
 Coordinate delivery through [release issue #24](https://github.com/eosrio/hyperion-tools/issues/24).
 
-P08 in the approved issue batch defines the reproducible Wire testnet profile before extension
-implementation. The [protocol investigation](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/architecture/hyperion-4.5-wire-protocol.md)
+P08 in the approved issue batch tracks the reproducible Wire testnet profile. Engineering fixtures
+can precede final launch pins. The [protocol investigation](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/architecture/hyperion-4.5-wire-protocol.md)
 records source findings and qualification limits.
 
 [Approved initial issue batch](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/roadmap/hyperion-4.5-initial-issues.md).
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
-Repository checks validate scaffold documents and local links; runtime qualification is pending.
+Primitive conformance, host integration and release qualification are separate gates. The selected
+new testnet has not been provisioned or qualified by this implementation.
 Licensed under [MIT](LICENSE).

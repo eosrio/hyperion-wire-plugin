@@ -1,6 +1,4 @@
-__pycache__/
-*.pyc
-node_modules/
-dist/
-target/
-coverage/
+/node_modules/
+/dist/
+/target/
+*.tgz
