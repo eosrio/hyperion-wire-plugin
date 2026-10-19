@@ -30,6 +30,7 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: python3 fixtures/generate-protocol-vectors.py --check
+      - run: npm run check:fixtures
       - run: npm test
       - run: cargo test --locked
       - run: cargo fmt --all --check

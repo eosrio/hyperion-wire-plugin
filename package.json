@@ -2,24 +2,50 @@
   "name": "@eosrio/hyperion-wire-plugin",
   "version": "0.0.0-dev.1",
   "private": true,
-  "description": "Development Wire protocol primitives for coordinated Hyperion Node and Rust components",
+  "description": "Source-pinned Wire ABI, value and SHiP codecs for coordinated Hyperion Node and Rust components",
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./protocol-profile.json": "./protocol-profile.json"
   },
-  "files": ["dist/", "crates/", "Cargo.toml", "Cargo.lock", "protocol-profile.json", "fixtures/", "docs/", "README.md", "LICENSE"],
+  "files": [
+    "dist/",
+    "crates/",
+    "Cargo.toml",
+    "Cargo.lock",
+    "protocol-profile.json",
+    "fixtures/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "scripts/codec-driver.mjs"
+  ],
   "scripts": {
     "build": "tsc",
     "typecheck": "bun check -p tsconfig.json",
-    "test": "npm run build && node --test tests/protocol.test.mjs",
-    "test:cross": "node scripts/check-cross-language.mjs",
+    "test": "npm run build && node --test tests/protocol.test.mjs tests/codec-node.test.mjs tests/ship-deployment.test.mjs",
+    "test:cross": "node scripts/check-cross-language.mjs && node scripts/check-codecs.mjs",
     "test:package": "node scripts/check-package.mjs",
     "check:docs": "python scripts/check-docs.py",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "check:fixtures": "python fixtures/codec/check-fixtures.py"
   },
-  "repository": { "type": "git", "url": "git+https://github.com/eosrio/hyperion-wire-plugin.git" },
-  "devDependencies": { "typescript": "7.0.2" }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eosrio/hyperion-wire-plugin.git"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "2.16.0"
+  }
 }

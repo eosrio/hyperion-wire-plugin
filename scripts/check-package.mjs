@@ -24,7 +24,7 @@ try {
   const [packed] = entries;
   assert(packed && packed.filename && packed.files?.length, 'npm pack did not return package contents');
   const paths = new Set(packed.files.map((file) => file.path));
-  for (const name of ['dist/index.js', 'dist/index.d.ts', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'fixtures/protocol-vectors.json']) {
+  for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/codec/abi.js', 'dist/ship.js', 'scripts/codec-driver.mjs', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'crates/wire-protocol/src/codec/value.rs', 'fixtures/protocol-vectors.json', 'fixtures/codec/ship-capture.json']) {
     assert(paths.has(name), `Missing coordinated package member: ${name}`);
   }
   assert(![...paths].some((name) => name.startsWith('node_modules/') || name.startsWith('target/')));
@@ -34,13 +34,16 @@ try {
   assert.equal(JSON.parse(readFileSync(join(installed, 'package.json'), 'utf8')).private, true);
   writeFileSync(join(stage, 'consumer.mjs'), `
 import assert from 'node:assert/strict';
-import {slotToUnixMilliseconds, unixMillisecondsToSlot, normalizeKvRecord} from '@eosrio/hyperion-wire-plugin';
+import {slotToUnixMilliseconds, unixMillisecondsToSlot, normalizeKvRecord, createWireValueCodec, encodeWireAbi, decodeWireAbi} from '@eosrio/hyperion-wire-plugin';
 import profile from '@eosrio/hyperion-wire-plugin/protocol-profile.json' with {type: 'json'};
 assert.equal(slotToUnixMilliseconds(0), profile.epochMilliseconds);
 assert.equal(unixMillisecondsToSlot(profile.epochMilliseconds + profile.slotMilliseconds), 1);
 const source = {chainId:'a'.repeat(64),blockId:'b'.repeat(64),blockNum:1,ordinal:0,abiDeployment:'fixture:abi:1'};
 const row = {kind:'contract_row_kv',present:true,code:'1',payer:'2',tableId:0,keyHex:'00ff',valueHex:'aa'};
 assert.equal(normalizeKvRecord(row,source).identity, 'wire-kv-v1:row:' + source.chainId + ':1:0:00ff');
+const abi = {version:'sysio::abi/1.3', structs:[{name:'row',base:'',fields:[{name:'slot',type:'block_timestamp_type'}]}]};
+const codec = createWireValueCodec(decodeWireAbi(encodeWireAbi(abi)));
+assert.deepEqual(codec.decode('row', new Uint8Array([0,0,0,0])), {slot:'2025-01-01T00:00:00.000'});
 `);
   run([join(stage, 'consumer.mjs')], stage);
   writeFileSync(join(stage, 'consumer.ts'), `import {slotToUnixMilliseconds} from '@eosrio/hyperion-wire-plugin';\nconst timestamp: number = slotToUnixMilliseconds(1);\nvoid timestamp;\n`);

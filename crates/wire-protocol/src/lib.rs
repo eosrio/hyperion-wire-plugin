@@ -1,9 +1,11 @@
-//! Package-local Wire engineering primitives, not a complete protocol provider.
+//! Package-local Wire engineering codecs and primitives, not a runtime provider.
 //!
-//! Inputs are already-decoded SHiP primitives. These functions do not decode binary
-//! frames or contract ABIs, resolve deployments, or establish canonical chain state.
+//! The codec module handles source-pinned binary ABIs, values and delta framing.
+//! The host supplies canonical deployment/fork context; the primitives below
+//! normalize decoded SHiP records without establishing canonical chain state.
 
 use std::fmt;
+pub mod codec;
 use std::sync::OnceLock;
 
 use serde_json::{Map, Value, json};

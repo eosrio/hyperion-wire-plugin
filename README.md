@@ -3,8 +3,8 @@
 The EOS Rio Wire chain extension for Hyperion, coordinating required Node and Rust components
 as one operator-managed package.
 
-Status: Private development implementation of Wire timestamp and KV identity primitives for
-Hyperion 4.5. The Node and Rust components share an engineering profile and fixture corpus.
+Status: Private development implementation of Wire ABI, value and SHiP codecs for
+Hyperion 4.5. The Node and Rust components share source-pinned profiles and fixture corpora.
 This is not an activated Hyperion protocol provider or a compatible release. Maintained by EOS Rio.
 
 Read the [architecture definition](https://github.com/eosrio/hyperion-tools/blob/a36fda12ba813968ce361e85893206d8f5bceb0f/docs/architecture/hyperion-4.5.md),
@@ -39,12 +39,20 @@ define package ownership; assigned homes are not implementation or release-suppo
 - Equivalent Node and internal Rust implementations, a shared vector corpus, and packed-content
   checks for the private source bundle. Rust is an internal component, not a second plugin install.
 
+[Issue #2](https://github.com/eosrio/hyperion-wire-plugin/issues/2) adds native binary meta-ABI
+and contract-value codecs, both protobuf lengths, all six crypto carrier families, SHiP
+requests/ACKs/results and nested payloads, and deployment-scoped numeric table resolution.
+The corpus retains official offline conversions, a real node capture and separately labeled
+source-derived cases. An upstream delta count defect is handled explicitly by a pinned
+transport compatibility path; the generic decoder rejects the incomplete framing.
+
 The APIs are package-local development entry points, not the public SDK protocol-provider contract.
-They do not decode SHiP frames or binary contract ABIs, resolve ABI deployments, activate workers,
-write storage, recover forks or install native components. See [the primitive contract](docs/primitives.md)
-and [source/fixture provenance](docs/protocol-sources.md). Codec completeness and host integration
-are tracked in [#2](https://github.com/eosrio/hyperion-wire-plugin/issues/2) and
-[History API #212](https://github.com/eosrio/hyperion-history-api/issues/212).
+The host supplies the canonical ABI deployment view. Worker activation, storage writes, fork
+recovery and native installation remain separate work. See [the codec contract](docs/codecs.md),
+[the primitive contract](docs/primitives.md), [codec fixture provenance](docs/codec-provenance.md)
+and [source provenance](docs/protocol-sources.md). Host integration is tracked in
+[History API #212](https://github.com/eosrio/hyperion-history-api/issues/212) and
+[tools #41](https://github.com/eosrio/hyperion-tools/issues/41).
 
 ## Development checks
 
@@ -59,6 +67,7 @@ npm run typecheck
 npm test
 cargo test --locked
 npm run test:cross
+npm run check:fixtures
 npm run test:package
 python scripts/check-docs.py
 ```
