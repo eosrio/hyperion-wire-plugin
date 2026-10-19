@@ -54,7 +54,7 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
-    "@eosrio/hyperion-sdk": "git+https://github.com/eosrio/hyperion-sdk.git#c572faa8d75fdf2d46e7fc97e2e852e1ead5d6aa",
-    "@bufbuild/protobuf": "2.16.0"
+    "@bufbuild/protobuf": "2.16.0",
+    "@eosrio/hyperion-sdk": "git+https://github.com/eosrio/hyperion-sdk.git#20f0ffc8fc72f2d5c37ec133c5ca13f8b64ae935"
   }
 }

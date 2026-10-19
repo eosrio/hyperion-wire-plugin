@@ -1,14 +1,33 @@
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-import {readFileSync, readdirSync, writeFileSync} from 'node:fs';
+import {readFileSync, readdirSync, writeFileSync, realpathSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {join} from 'node:path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const git = args => execFileSync('git', args, {cwd: root, encoding: 'utf8', env: {...process.env, GIT_OPTIONAL_LOCKS: '0'}}).trim();
-const sourceRevision = git(['rev-parse', 'HEAD']);
+const git = args => execFileSync('git', args, {cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: {...process.env, GIT_OPTIONAL_LOCKS: '0'}}).trim();
+const canonical = path => {const value = realpathSync(path); return process.platform === 'win32' ? value.toLowerCase() : value;};
+let sourceRevision, sourceModified, sourceOrigin;
+try {
+  // Never accidentally bind an unpacked dependency to a containing repository.
+  if (canonical(git(['rev-parse', '--show-toplevel'])) !== canonical(root)) throw new Error('Not this package repository');
+  sourceRevision = git(['rev-parse', 'HEAD']);
+  sourceModified = git(['status', '--porcelain', '--untracked-files=all', '--', 'src', 'scripts', 'package.json', 'package-lock.json', 'crates', 'Cargo.toml', 'Cargo.lock']).length > 0;
+  sourceOrigin = 'git-checkout';
+} catch {
+  // pacote may download the exact GitHub source archive, which has no .git.
+  // Its preparation subprocess receives the resolved Git URL list in this
+  // variable (pacote/lib/git.js). Accept only this package's unique exact pin.
+  const pins = new Set((process.env._PACOTE_NO_PREPARE_ ?? '').split('\n').flatMap(value => {
+    const match = /^(?:git\+https:\/\/github\.com\/|git\+ssh:\/\/git@github\.com\/)eosrio\/hyperion-wire-plugin(?:\.git)?#([0-9a-f]{40})$/.exec(value.trim());
+    return match ? [match[1]] : [];
+  }));
+  if (pins.size !== 1) throw new Error('Provider preparation requires this package Git checkout or one exact npm-resolved Git pin');
+  [sourceRevision] = pins;
+  sourceModified = false;
+  sourceOrigin = 'npm-resolved-git-archive';
+}
 if (!/^[0-9a-f]{40}$/.test(sourceRevision)) throw new Error('An exact Git source revision is required to prepare the provider');
-const sourceModified = git(['status', '--porcelain', '--untracked-files=all', '--', 'src', 'scripts', 'package.json', 'package-lock.json', 'crates', 'Cargo.toml', 'Cargo.lock']).length > 0;
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const json = data => JSON.stringify(data, null, 2) + '\n';
@@ -21,7 +40,7 @@ const walk = path => readdirSync(join(root, path), {withFileTypes: true}).flatMa
   return entry.isDirectory() ? walk(child) : [child];
 });
 const artifact = (id, kind, paths) => {
-  const manifest = {schemaVersion: 1, id, kind, sourceRevision, sourceModified,
+  const manifest = {schemaVersion: 1, id, kind, sourceRevision, sourceModified, sourceOrigin,
     files: [...new Set(paths)].sort().map(path => ({path, sha256: hash(readFileSync(join(root, path)))}))};
   const bytes = json(manifest);
   const runtime = id === 'wire-node-codec' ? 'node' : 'rust';
