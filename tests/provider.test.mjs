@@ -82,7 +82,11 @@ test('selected SDK session decodes the complete captured bundle and validates ev
   for (const [, delta] of deltas) for (const row of delta.rows) {
     const raw = bytes(row.data);
     const value = session.decodeRow(delta.name, raw);
-    assert.equal(provider.normalizeDelta({stream: delta.name, present: Boolean(row.present), raw, value}, {}).kind, 'passthrough');
+    const normalized = provider.normalizeDelta({stream: delta.name, present: Boolean(row.present), raw, value}, {});
+    if (delta.name === 'resource_limits_state') {
+      assert.equal(normalized.kind, 'ignore');
+      assert.ok(normalized.reason.includes('resource limit state'));
+    } else assert.equal(normalized.kind, 'passthrough');
     rows++;
   }
   assert.ok(rows > 0);
