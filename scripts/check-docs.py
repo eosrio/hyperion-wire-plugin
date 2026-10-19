@@ -10,7 +10,7 @@ for name in ("README.md", "LICENSE", "CONTRIBUTING.md", "AGENTS.md"):
         failures.append(f"Missing or empty required document: {name}")
 
 for document in root.rglob("*.md"):
-    if ".git" in document.relative_to(root).parts:
+    if {".git", "node_modules", "dist", "target"}.intersection(document.relative_to(root).parts):
         continue
     for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", document.read_text(encoding="utf-8")):
         target = target.strip("<>")
