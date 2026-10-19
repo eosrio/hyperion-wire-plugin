@@ -12,7 +12,7 @@ try {
   // Never accidentally bind an unpacked dependency to a containing repository.
   if (canonical(git(['rev-parse', '--show-toplevel'])) !== canonical(root)) throw new Error('Not this package repository');
   sourceRevision = git(['rev-parse', 'HEAD']);
-  sourceModified = git(['status', '--porcelain', '--untracked-files=all', '--', 'src', 'scripts', 'package.json', 'package-lock.json', 'crates', 'Cargo.toml', 'Cargo.lock']).length > 0;
+  sourceModified = git(['status', '--porcelain', '--untracked-files=all', '--', 'src', 'scripts', 'package.json', 'package-lock.json', 'protocol-profile.json', 'crates', 'Cargo.toml', 'Cargo.lock']).length > 0;
   sourceOrigin = 'git-checkout';
 } catch {
   // pacote may download the exact GitHub source archive, which has no .git.
@@ -49,9 +49,9 @@ const artifact = (id, kind, paths) => {
 };
 const node = artifact('wire-node-codec', 'compiled-javascript-engineering', [
   ...walk('dist').filter(path => !/\/protocol-(?:provider|node-artifact|rust-artifact)\.json$/.test(path)),
-  'package.json',
+  'package.json', 'protocol-profile.json',
 ]);
-const rust = artifact('wire-rust-codec', 'source-only-engineering', ['Cargo.toml', 'Cargo.lock', ...walk('crates')]);
+const rust = artifact('wire-rust-codec', 'source-only-engineering', ['Cargo.toml', 'Cargo.lock', 'protocol-profile.json', ...walk('crates')]);
 const {codecProfiles} = await import('../dist/profiles.js');
 writeFileSync(join(root, 'dist/protocol-provider.json'), json({interfaceVersion: 1,
   manifest: {schemaVersion: 1, package: pkg.name, version: pkg.version, kind: 'protocol',

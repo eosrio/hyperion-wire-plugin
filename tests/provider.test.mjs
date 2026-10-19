@@ -123,6 +123,7 @@ test('inert descriptors bind both coordinated components to actual package file 
     assert.equal(manifest.id, component.id);
     assert.equal(manifest.sourceRevision, component.sourceRevision);
     assert.equal(typeof manifest.sourceModified, 'boolean');
+    assert.ok(manifest.files.some(entry => entry.path === 'protocol-profile.json'), 'compiled-in Rust profile must be hashed');
     if (component.runtime === 'node') assert.ok(manifest.files.some(entry => entry.path === 'dist/provider.js'));
     if (component.runtime === 'rust') assert.equal(manifest.kind, 'source-only-engineering');
     for (const entry of manifest.files) assert.equal(createHash('sha256').update(readFileSync(new URL(entry.path, root))).digest('hex'), entry.sha256, entry.path);
