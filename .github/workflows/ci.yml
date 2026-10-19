@@ -25,6 +25,8 @@ jobs:
         with:
           bun-version-file: .bun-version
       - uses: dtolnay/rust-toolchain@1.88.0
+        with:
+          components: rustfmt, clippy
       - run: npm ci
       - run: npm run typecheck
       - run: python3 fixtures/generate-protocol-vectors.py --check
