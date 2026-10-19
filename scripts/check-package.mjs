@@ -61,10 +61,12 @@ try {
   }
   assert(![...paths].some((name) => name.startsWith('node_modules/') || name.startsWith('target/')));
   writeFileSync(join(stage, 'package.json'), JSON.stringify({private: true, type: 'module'}));
-  // A fresh npm ci caches locked tarballs, not necessarily registry metadata.
-  // Resolve the real consumer lock first, then prove installation from that lock
-  // works offline using the exact dependency tarballs already installed above.
+  // The consumer resolves its own transitive graph, which can differ from the
+  // repository lock when a dependency has published another compatible patch.
+  // Cache that exact consumer lock with a normal install before proving a second
+  // installation works offline. Git dependency preparation runs in both passes.
   run([npmCli, 'install', '--package-lock-only', '--allow-git=all', '--no-audit', '--no-fund', join(stage, packed.filename)], stage);
+  run([npmCli, 'ci', '--allow-git=all', '--no-audit', '--no-fund'], stage);
   run([npmCli, 'ci', '--offline', '--allow-git=all', '--no-audit', '--no-fund'], stage);
   const installed = join(stage, 'node_modules', '@eosrio', 'hyperion-wire-plugin');
   assert.equal(JSON.parse(readFileSync(join(installed, 'package.json'), 'utf8')).private, true);
