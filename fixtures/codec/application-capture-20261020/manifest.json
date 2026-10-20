@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "rawCapture": {
+    "file": "raw-capture.tar.gz",
+    "sha256": "9a0b82e070662be562b2da3d4db61f1f7e143f1b32df47fef7a831b120077026",
+    "manifestSha256": "139206ce71eac98e817cb32fc34442bac9ede94a8ea50156f1ba3d5f9afa105c",
+    "files": 3754,
+    "bytes": 12897392
+  },
+  "officialRowOracles": {
+    "file": "official-row-oracles.tar.gz",
+    "sha256": "10330576abcef6b2ba4e45c67e479024f18d5ccb3a663cb711b62b51f1663a5d",
+    "manifestSha256": "ce077aa64d4f62721cd1d53cf16f6479bc580902177cfea24c53cf16886488b5",
+    "files": 1372,
+    "bytes": 1372136
+  }
+}

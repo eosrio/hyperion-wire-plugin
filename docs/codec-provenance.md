@@ -114,6 +114,26 @@ reflect a shared-pointer presence byte followed by fixed bytes. They do not use 
 BLS class's length prefix. The rejected initial frame attempts remain recorded separately from
 the successful goldens; both implementations check the successful independent bytes.
 
+## Deployed application workload
+
+The [2026-10-20 application corpus](../fixtures/codec/application-capture-20261020/README.md)
+retains 119 original irreversible blocks from a separate isolated 7d engineering chain, with
+36 submitted account/deployment/application transactions. Its archives preserve public
+genesis/process/source pins, exact committed ABI/WASM blobs, signed transaction receipts,
+original transport bytes and nested payloads. An independent cursor verifies full membership,
+all physical streams and native ABI epochs before generating 1,267 existing-driver operations.
+
+An additional 342 offline official-clio commands independently observe all 627 physical rows
+and eight native ABI deployment occurrences. Original stdout/stderr and input hashes remain
+retained; the checker preserves unsafe JSON integer tokens before ABI-directed normalization.
+Binary ABI round trips use independently parsed original metadata, including present-empty
+tail sections and the original protobuf descriptor string. Semantic JSON comparison does not
+require differently ordered descriptor objects to reproduce the original binary text.
+
+The executable comparison checks both Node and Rust. This later workload supplies actual
+KV/application evidence for its selected engineering profile; it does not close the initial
+ABI-frontier, unobserved secondary-delete, full-worker, fork/recovery or final-testnet gates.
+
 ## Node JSON observations
 
 Official clio renders ABI `bool` as numeric 0/1; `time_point` and block timestamps with

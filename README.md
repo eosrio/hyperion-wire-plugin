@@ -46,6 +46,11 @@ The corpus retains official offline conversions, a real node capture and separat
 source-derived cases. An upstream delta count defect is handled explicitly by a pinned
 transport compatibility path; the generic decoder rejects the incomplete framing.
 
+The [captured application workload](fixtures/codec/application-capture-20261020/README.md)
+adds 119 original blocks with deployed contracts, complete primary/secondary KV bytes,
+protobuf actions/results, distinct inline origins and an ABI replacement. Its 1,267 operations
+are compared across Node/Rust with independent byte-level and official-clio expectations.
+
 The APIs are package-local development entry points, not the public SDK protocol-provider contract.
 The host supplies the canonical ABI deployment view. Worker activation, storage writes, fork
 recovery and native installation remain separate work. See [the codec contract](docs/codecs.md),
@@ -68,7 +73,7 @@ npm test
 cargo test --locked
 npm run test:cross
 npm run check:fixtures
-python -B -m unittest discover -s tests -p 'test_capture_wire_range.py'
+python -B -m unittest discover -s tests -p 'test_*capture*.py'
 npm run test:package
 python scripts/check-docs.py
 ```

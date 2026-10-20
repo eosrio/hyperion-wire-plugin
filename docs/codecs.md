@@ -105,6 +105,11 @@ implementations with independent fixtures and malformed-input mutations.
 
 [Provenance](codec-provenance.md) separates committed upstream ABI/WASM hashes, regenerated
 binary ABI conversions, the release-node capture and newer source-derived slug/chain/KV values.
-No application contracts were deployed for this corpus. Worker/provider integration (#212/#41),
-real contract execution, forks/recovery and the unified operator distribution (#3) remain
-distinct gates. Preserve existing Elasticsearch history throughout those integrations.
+The original single-block corpus had no deployed application contracts. The later
+[captured application workload](../fixtures/codec/application-capture-20261020/README.md)
+adds actual primary/secondary KV records, protobuf actions/return values, repeated inline
+origins and native ABI deployments. Its 1,267 operations are checked across Node/Rust with
+independent raw-byte and official-clio expectations. Unknown starting ABI state, unobserved
+secondary deletion, worker/provider integration (#212/#41), forks/recovery and the unified
+operator distribution (#3) remain distinct gates. Preserve existing Elasticsearch history
+throughout those integrations.

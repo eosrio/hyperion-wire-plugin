@@ -33,6 +33,8 @@ jobs:
       - run: npm run check:fixtures
       - name: Check bounded SHiP range capture without services
         run: python3 -B -m unittest discover -s tests -p 'test_capture_wire_range.py'
+      - name: Check actual application corpus audit and extraction guards without services
+        run: python3 -B -m unittest discover -s tests -p 'test_application_capture_audit.py'
       - run: npm test
       - run: cargo test --locked
       - run: cargo fmt --all --check
