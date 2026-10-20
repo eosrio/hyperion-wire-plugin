@@ -68,11 +68,15 @@ npm test
 cargo test --locked
 npm run test:cross
 npm run check:fixtures
+python -B -m unittest discover -s tests -p 'test_capture_wire_range.py'
 npm run test:package
 python scripts/check-docs.py
 ```
 
 The package remains private. No version is published and no compatibility catalog claim is made.
+The [bounded range capture driver](docs/range-capture.md) retains real SHiP input and official
+CLI observations from a source-pinned node; its raw capture does not certify application coverage
+or the initial ABI frontier.
 The source bundle is checked as one coordinated package; platform/native artifact distribution
 and operator activation remain [#3](https://github.com/eosrio/hyperion-wire-plugin/issues/3).
 

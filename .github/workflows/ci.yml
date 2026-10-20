@@ -31,6 +31,8 @@ jobs:
       - run: npm run typecheck
       - run: python3 fixtures/generate-protocol-vectors.py --check
       - run: npm run check:fixtures
+      - name: Check bounded SHiP range capture without services
+        run: python3 -B -m unittest discover -s tests -p 'test_capture_wire_range.py'
       - run: npm test
       - run: cargo test --locked
       - run: cargo fmt --all --check
