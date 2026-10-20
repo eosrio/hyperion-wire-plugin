@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "passed-bounded-codec-corpus",
+  "codecSourceRevision": "dd924d11892e9413ffc7693f0cf9458074083089",
+  "profileId": "wire-sysio-7dede884-engineering-v1",
+  "sourceRevision": "7dede884e0150d36fa788e85a119e10653ade8ca",
+  "chainId": "9f70136446c1a3ea95deefbbe4aaeee4f31f16870eba976fcb7054172fbffacf",
+  "range": {
+    "startBlock": 2,
+    "endBlockInclusive": 120,
+    "blocks": 119
+  },
+  "source": {
+    "transactions": 155,
+    "actionReceipts": 160,
+    "plannedTransactions": 36,
+    "physicalDeltaRows": 627,
+    "omittedPhysicalStreamsInOriginalClioVectors": 119,
+    "nativeAbiDeployments": 8
+  },
+  "runtimeComparison": {
+    "runtimes": [
+      "Node22.23.3",
+      "Node24.19.0",
+      "Rust1.88.0"
+    ],
+    "operations": 1267,
+    "allResultsEqual": true,
+    "forensicAndOriginalOracleChecks": 812,
+    "additionalTypedOracleChecksRequired": 455,
+    "additionalTypedOracleChecksPassed": 455,
+    "supplementalOfficialCommands": 342,
+    "supplementalPhysicalRowOccurrences": 627,
+    "supplementalNativeAbiOccurrences": 8,
+    "failures": 0
+  },
+  "generatedSha256": {
+    "operations.json": "d7542a0a6d0136965e14bd480701684be4d85803c5e555c61c0e7305d3a68f7a",
+    "checks.json": "8d5d59828b7627dd4cc6aaa78ca7a43ad09dd6b511c5c97f875aeb7f7ac0d653",
+    "audit.json": "1f08398e467fe770c5fcf0301a7dd9385697bce1ca01acb0519ee1dae5cc4134",
+    "unoracled-rows.json": "a2cba610051f8371e3e7f3b7aefa994a2ddc186ee5d91c67492526a621364c43",
+    "node22-results.json": "552876235e7d6cfae5b142101ed9c031fe40e0167932dba2b9d7e9c94ee923f4",
+    "node24-results.json": "552876235e7d6cfae5b142101ed9c031fe40e0167932dba2b9d7e9c94ee923f4",
+    "rust188-results.json": "4fda7cfca74d3579315e0449e238dfe8c77c78ea97db4fbf5b6e7611866db983"
+  },
+  "sourceGeneratorSha256": "7f468389470403c8ca6ef10b8dadf73b58f07e75e77060086b6edf5d3f852d0e",
+  "independentGeneratorSha256": "cbd1a5e5035d49adeaba8485ef45a3814de2cd5d22b72da997653a34646bc2fe",
+  "qualification": {
+    "fullWireIssue2Complete": false,
+    "startingAncestry": "unknown-before-range",
+    "startingAbiFrontier": "not-supplied",
+    "currentHeadAbiFallback": false,
+    "finalTestnetPins": "pending",
+    "fullWorkerAcceptance": false,
+    "selectedTestnetAcceptance": false,
+    "performanceAcceptance": false,
+    "gaps": [
+      "No 6508 node capture",
+      "No observed secondary update or deletion",
+      "No same-block ABI replacement, ABI clear or malformed deployment",
+      "No failed or deferred transaction exercise",
+      "No fork recovery exercise",
+      "Actual sequence counters are small; full-width positive cases are application values",
+      "No full-worker, sink, canonical history or PIT acceptance"
+    ]
+  }
+}
