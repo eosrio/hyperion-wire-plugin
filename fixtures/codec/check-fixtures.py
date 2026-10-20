@@ -5,8 +5,9 @@ import sys
 
 root = pathlib.Path(__file__).resolve().parent
 manifest = root / 'SHA256SUMS'
-files = sorted(path for path in root.rglob('*') if path.is_file() and path != manifest
-               and '__pycache__' not in path.parts)
+files = sorted((path for path in root.rglob('*') if path.is_file() and path != manifest
+                and '__pycache__' not in path.parts),
+               key=lambda path: path.relative_to(root).as_posix())
 current = ''.join(hashlib.sha256(path.read_bytes()).hexdigest() + '  ' +
                   path.relative_to(root).as_posix() + '\n' for path in files)
 if sys.argv[1:] == ['--write']:
