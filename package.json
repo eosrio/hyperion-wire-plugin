@@ -38,7 +38,7 @@
   "scripts": {
     "build": "tsc && node scripts/build-protocol-descriptor.mjs",
     "typecheck": "bun check -p tsconfig.json",
-    "test": "npm run build && node --test tests/protocol.test.mjs tests/codec-node.test.mjs tests/ship-deployment.test.mjs tests/provider.test.mjs tests/abi-observations.test.mjs",
+    "test": "npm run build && node --test tests/protocol.test.mjs tests/codec-node.test.mjs tests/ship-deployment.test.mjs tests/provider.test.mjs tests/abi-observations.test.mjs tests/native-genesis.test.mjs",
     "test:cross": "node scripts/check-cross-language.mjs && node scripts/check-codecs.mjs && node scripts/check-abi-observations.mjs && node scripts/check-application-capture.mjs",
     "test:package": "node scripts/check-package.mjs",
     "check:docs": "python scripts/check-docs.py",
@@ -55,6 +55,6 @@
   },
   "dependencies": {
     "@bufbuild/protobuf": "2.16.0",
-    "@eosrio/hyperion-sdk": "git+https://github.com/eosrio/hyperion-sdk.git#e9e07a61a9ed4721838eff7dca988093a2e7646d"
+    "@eosrio/hyperion-sdk": "git+https://github.com/eosrio/hyperion-sdk.git#38dfdb08d3145ad7fdff1a004e9ae94a43c1fe83"
   }
 }
