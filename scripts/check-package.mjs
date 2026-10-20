@@ -56,7 +56,7 @@ try {
   const [packed] = entries;
   assert(packed && packed.filename && packed.files?.length, 'npm pack did not return package contents');
   const paths = new Set(packed.files.map((file) => file.path));
-  for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/codec/abi.js', 'dist/ship.js', 'dist/abi-observations.js', 'scripts/codec-driver.mjs', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'crates/wire-protocol/src/codec/value.rs', 'crates/wire-protocol/src/codec/observations.rs', 'fixtures/protocol-vectors.json', 'fixtures/codec/ship-capture.json', 'fixtures/abi-observations/vectors.json']) {
+  for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/codec/abi.js', 'dist/ship.js', 'dist/abi-observations.js', 'dist/native-genesis.js', 'scripts/codec-driver.mjs', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'crates/wire-protocol/src/codec/value.rs', 'crates/wire-protocol/src/codec/observations.rs', 'fixtures/protocol-vectors.json', 'fixtures/codec/ship-capture.json', 'fixtures/abi-observations/vectors.json', 'fixtures/codec/native-genesis-6508-20261020/manifest.json', 'fixtures/codec/native-genesis-6508-20261020/result.bin']) {
     assert(paths.has(name), `Missing coordinated package member: ${name}`);
   }
   assert(![...paths].some((name) => name.startsWith('node_modules/') || name.startsWith('target/')));
@@ -95,6 +95,18 @@ for (const component of descriptor.profiles[0].components) {
   for (const file of manifest.files) assert.equal(createHash('sha256').update(readFileSync(new URL(file.path, installedRoot))).digest('hex'), file.sha256, file.path);
 }
 assert.equal(createProtocolProvider(descriptor.profiles[0].id).profileId, descriptor.profiles[0].id);
+const genesisRoot = new URL('fixtures/codec/native-genesis-6508-20261020/', installedRoot);
+const genesis = JSON.parse(readFileSync(new URL('manifest.json', genesisRoot)));
+for (const member of genesis.members) {
+  const bytes = readFileSync(new URL(member.path, genesisRoot));
+  assert.equal(bytes.length, member.bytes);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), member.sha256);
+}
+assert.deepEqual(createProtocolProvider(genesis.profileId).verifyNativeGenesis({
+  schemaJson: readFileSync(new URL('ship.abi.json', genesisRoot), 'utf8'),
+  block: readFileSync(new URL('block.bin', genesisRoot)), traces: null,
+  deltas: readFileSync(new URL('deltas.bin', genesisRoot)),
+}, genesis.source), JSON.parse(readFileSync(new URL('expected.json', genesisRoot))));
 const observations = JSON.parse(readFileSync(new URL('fixtures/abi-observations/vectors.json', installedRoot)));
 for (const selected of descriptor.profiles) {
   const vector = observations.vectors.find(vector => vector.profileId === selected.id && vector.expected?.deployments.length > 0);

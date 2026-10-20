@@ -52,6 +52,10 @@ protobuf actions/results, distinct inline origins and an ABI replacement. Its 1,
 are compared across Node/Rust with independent byte-level and official-clio expectations.
 
 The APIs are package-local development entry points, not the public SDK protocol-provider contract.
+The SDK provider's [native-genesis verifier](docs/native-genesis.md) now checks the bounded
+6508 initial source inventory and returns native ABI facts from the actual testnet fixture.
+Canonical initialization and serving authority remain host responsibilities; this is a Node-only
+genesis verification slice with explicit key-family limits.
 The host supplies the canonical ABI deployment view. Worker activation, storage writes, fork
 recovery and native installation remain separate work. See [the codec contract](docs/codecs.md),
 [the primitive contract](docs/primitives.md), [codec fixture provenance](docs/codec-provenance.md)

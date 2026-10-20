@@ -8,6 +8,7 @@ import {normalizeKvRecord} from './primitives.js';
 import {resolveCodecProfile} from './profiles.js';
 import {createWireShipCodec} from './ship.js';
 import {observeWireBlockAbi} from './abi-observations.js';
+import {verifyWireNativeGenesis} from './native-genesis.js';
 
 // Source-pinned SHiP v0 physical KV layout; it is independent of contract ABIs.
 // Tests compare these fields with the captured upstream handshake.
@@ -49,6 +50,7 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
       encodeValue: (abi, type, value) => createWireValueCodec(abi, profile).encode(type, value),
     },
     observeBlockAbi: (input, source) => observeWireBlockAbi(input, source, profile),
+    verifyNativeGenesis: (input, source) => verifyWireNativeGenesis(input, source, profile),
     createShipSession(handshake: unknown): ProtocolShipSession {
       const ship = createWireShipCodec(handshake, profile);
       const codec = createWireValueCodec(handshake, profile);
