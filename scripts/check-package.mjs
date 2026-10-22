@@ -56,7 +56,7 @@ try {
   const [packed] = entries;
   assert(packed && packed.filename && packed.files?.length, 'npm pack did not return package contents');
   const paths = new Set(packed.files.map((file) => file.path));
-  for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/codec/abi.js', 'dist/ship.js', 'dist/abi-observations.js', 'dist/native-genesis.js', 'scripts/codec-driver.mjs', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'crates/wire-protocol/src/codec/value.rs', 'crates/wire-protocol/src/codec/observations.rs', 'fixtures/protocol-vectors.json', 'fixtures/codec/ship-capture.json', 'fixtures/abi-observations/vectors.json', 'fixtures/codec/native-genesis-6508-20261020/manifest.json', 'fixtures/codec/native-genesis-6508-20261020/result.bin']) {
+  for (const name of ['dist/index.js', 'dist/index.d.ts', 'dist/codec/abi.js', 'dist/ship.js', 'dist/abi-observations.js', 'dist/native-genesis.js', 'dist/native-actions.js', 'dist/native-actions.d.ts', 'scripts/codec-driver.mjs', 'protocol-profile.json', 'Cargo.toml', 'Cargo.lock', 'crates/wire-protocol/src/lib.rs', 'crates/wire-protocol/src/codec/value.rs', 'crates/wire-protocol/src/codec/observations.rs', 'crates/wire-protocol/src/codec/native_actions.rs', 'crates/wire-protocol/src/codec/native_action_abi.json', 'fixtures/protocol-vectors.json', 'fixtures/codec/ship-capture.json', 'fixtures/abi-observations/vectors.json', 'fixtures/codec/native-genesis-6508-20261020/manifest.json', 'fixtures/codec/native-genesis-6508-20261020/result.bin', 'fixtures/codec/native-onblock-6508-20261022/manifest.json', 'fixtures/codec/native-onblock-6508-20261022/expected.json']) {
     assert(paths.has(name), `Missing coordinated package member: ${name}`);
   }
   assert(![...paths].some((name) => name.startsWith('node_modules/') || name.startsWith('target/')));
@@ -72,7 +72,7 @@ try {
   assert.equal(JSON.parse(readFileSync(join(installed, 'package.json'), 'utf8')).private, true);
   writeFileSync(join(stage, 'consumer.mjs'), `
 import assert from 'node:assert/strict';
-import {slotToUnixMilliseconds, unixMillisecondsToSlot, normalizeKvRecord, createWireValueCodec, encodeWireAbi, decodeWireAbi} from '@eosrio/hyperion-wire-plugin';
+import {slotToUnixMilliseconds, unixMillisecondsToSlot, normalizeKvRecord, createWireValueCodec, createWireShipCodec, createWireNativeActions, resolveCodecProfile, encodeWireAbi, decodeWireAbi} from '@eosrio/hyperion-wire-plugin';
 import {createProtocolProvider} from '@eosrio/hyperion-wire-plugin/provider';
 import descriptor from '@eosrio/hyperion-wire-plugin/protocol-provider.json' with {type: 'json'};
 import {readFileSync} from 'node:fs';
@@ -95,6 +95,29 @@ for (const component of descriptor.profiles[0].components) {
   for (const file of manifest.files) assert.equal(createHash('sha256').update(readFileSync(new URL(file.path, installedRoot))).digest('hex'), file.sha256, file.path);
 }
 assert.equal(createProtocolProvider(descriptor.profiles[0].id).profileId, descriptor.profiles[0].id);
+assert.equal(createProtocolProvider(descriptor.profiles[0].id).nativeActions, undefined);
+assert(descriptor.profiles.every(profile => !Object.hasOwn(profile, 'nativeActions')));
+const nativeRoot = new URL('fixtures/codec/native-onblock-6508-20261022/', installedRoot);
+const nativeManifest = JSON.parse(readFileSync(new URL('manifest.json', nativeRoot)));
+for (const member of nativeManifest.members) {
+  const bytes = readFileSync(new URL(member.path, nativeRoot));
+  assert.equal(bytes.length, member.bytes);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), member.sha256);
+}
+const nativeSchema = readFileSync(new URL(nativeManifest.schema.path, nativeRoot));
+assert.equal(createHash('sha256').update(nativeSchema).digest('hex'), nativeManifest.schema.sha256);
+const nativeProfile = resolveCodecProfile(nativeManifest.profileId);
+const nativeShip = createWireShipCodec(JSON.parse(nativeSchema), nativeProfile);
+const native = createWireNativeActions(nativeProfile);
+for (const expected of JSON.parse(readFileSync(new URL('expected.json', nativeRoot)))) {
+  const [, result] = nativeShip.decodeResult(readFileSync(new URL('block-' + String(expected.blockNum).padStart(6, '0') + '.bin', nativeRoot)));
+  const source = {chainId:nativeManifest.chainId,blockNum:expected.blockNum,blockId:expected.blockId,previousBlockId:result.prev_block.block_id};
+  const facts = native.observe({schemaJson:nativeSchema.toString('utf8'),block:Buffer.from(result.block,'hex'),traces:Buffer.from(result.traces,'hex')},source);
+  assert.deepEqual(facts.decisions.find(row => row.origin.transactionId === expected.transactionId && row.origin.actionOrdinal === 1),
+    {origin:{transactionId:expected.transactionId,actionOrdinal:1,rawSha256:expected.rawSha256},kind:'native',nativeKind:expected.nativeKind});
+  assert.deepEqual(native.decodeValue(expected.nativeKind,Buffer.from(expected.rawHex,'hex')),expected.expectedValue);
+  assert.equal(Buffer.from(native.encodeValue(expected.nativeKind,expected.expectedValue)).toString('hex'),expected.rawHex);
+}
 const genesisRoot = new URL('fixtures/codec/native-genesis-6508-20261020/', installedRoot);
 const genesis = JSON.parse(readFileSync(new URL('manifest.json', genesisRoot)));
 for (const member of genesis.members) {
@@ -118,7 +141,7 @@ for (const selected of descriptor.profiles) {
 }
 `);
   run([join(stage, 'consumer.mjs')], stage);
-  writeFileSync(join(stage, 'consumer.ts'), `import {slotToUnixMilliseconds} from '@eosrio/hyperion-wire-plugin';\nconst timestamp: number = slotToUnixMilliseconds(1);\nvoid timestamp;\n`);
+  writeFileSync(join(stage, 'consumer.ts'), `import {slotToUnixMilliseconds, createWireNativeActions, resolveCodecProfile} from '@eosrio/hyperion-wire-plugin';\nimport type {ProtocolNativeActions} from '@eosrio/hyperion-sdk/protocol';\nconst timestamp: number = slotToUnixMilliseconds(1);\nconst native: ProtocolNativeActions = createWireNativeActions(resolveCodecProfile());\nconst bytes: Uint8Array = native.encodeValue('wire.sysio.onblock.v1', {});\nvoid [timestamp, bytes];\n`);
   const require = createRequire(import.meta.url);
   const tsc = join(dirname(require.resolve('typescript/package.json')), 'bin', 'tsc');
   run([tsc, '--noEmit', '--strict', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', join(stage, 'consumer.ts')], stage);

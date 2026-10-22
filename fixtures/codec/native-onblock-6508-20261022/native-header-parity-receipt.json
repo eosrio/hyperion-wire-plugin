@@ -1,0 +1,17 @@
+{
+  "wireHead": "8d6764c37df3609a44c5905150507364c595f027",
+  "originalCases": 3,
+  "operationsPerImplementation": 12,
+  "implementations": [
+    "native Node 22.23.3",
+    "native Node 24.19.0",
+    "Rust driver built with 1.99.0"
+  ],
+  "strictDecode": true,
+  "exactEncode": true,
+  "trailingByteRejected": true,
+  "truncationRejected": true,
+  "identicalResults": true,
+  "operationsSha256": "eb2988323aeb1ef55fae335401851bafd0fdc1c1146a889671e3166a5dae84d0",
+  "limitation": "Codec driver/source evidence only; ABI epoch authority, protocol action integration, native worker and release qualification remain separate."
+}

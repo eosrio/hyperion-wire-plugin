@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "kind": "actual-wire-native-onblock-source-regression",
+  "profileId": "wire-sysio-6508c9e8-engineering-v1",
+  "upstreamRevision": "6508c9e8f4044df8d5acb082a7af3be6a80cd9a0",
+  "chainId": "9ccd94e823fda51363bd4265ad618a909c4985c445078c79f8d030fe9697b71d",
+  "source": "https://github.com/eosrio/hyperion-history-api/tree/37035935facb306207194d8309d29542d68b8ad6/tests/fixtures/portable-state-worker",
+  "originalArchiveSha256": "42d092f3ecf6f428ecdba4825580377acdd27f2818ce445d4f197719e6ab72b7",
+  "originalManifestSha256": "fa48079240a25d6fddfe80b83539bf0735be0f03b034dd816205c7e815d2d305",
+  "schema": {
+    "path": "../native-genesis-6508-20261020/ship.abi.json",
+    "sha256": "94c5661306467f8c49f22180213e390db10d290be9ebf512fb63314f440ef6f9"
+  },
+  "expectedValueAuthority": "Matching pinned official clio native-header conversions. Only block397 native uint64 threshold safe JSON number6 is represented as exact decimal string6.",
+  "limitations": "Original source/codec regression and in-memory ABI reducer replay only; no durable native classification proof, worker/native Rust deployment, fork or release acceptance.",
+  "members": [
+    {
+      "path": "block-000032.bin",
+      "bytes": 676963,
+      "sha256": "9c8f5e3a627db565ef5e3ba6059f4cd294cd1307c67542586617c45f727205ff"
+    },
+    {
+      "path": "block-000033.bin",
+      "bytes": 12431,
+      "sha256": "6d1755e9aa718dd4d0dd120a6bb7706881a0809bd2ef9fdef4efee93d1c172a3"
+    },
+    {
+      "path": "block-000121.bin",
+      "bytes": 13785,
+      "sha256": "5d587bfafd452b218594e57760b1271f897237112b4b08fd2884bcd8918f2949"
+    },
+    {
+      "path": "block-000122.bin",
+      "bytes": 12705,
+      "sha256": "fbe2a2eccb02be53d5bdc36ce3149be80971b551f8af65cbad7a7aeac94db26a"
+    },
+    {
+      "path": "block-000396.bin",
+      "bytes": 14107,
+      "sha256": "0a5bf000db3122d5eebde997ec4d7220e31f4a0f1b83626dad3f3efac0e98a5f"
+    },
+    {
+      "path": "block-000397.bin",
+      "bytes": 12444,
+      "sha256": "e19841d66432c0850fda71798bd41fdd367083ade114cd1bb07965f01811e805"
+    },
+    {
+      "path": "deployed-sysio-32.abi.bin",
+      "bytes": 11008,
+      "sha256": "f92dac127ba2a22bf2769f32f18486b149cfbb1db9ec249d3a6c88faba0ad06b"
+    },
+    {
+      "path": "expected.json",
+      "bytes": 9522,
+      "sha256": "f2d022f14e493f2297034dd8e7e1846d1504f19bbf1278afee8cd30a955b9720"
+    },
+    {
+      "path": "input-epoch-v22.23.3-receipt.json",
+      "bytes": 8551,
+      "sha256": "8d74c303bbb8a01e9eb3c4ff2968b9e12d9fcb55663b8990f858c21c6d5c1941"
+    },
+    {
+      "path": "input-epoch-v24.19.0-receipt.json",
+      "bytes": 8551,
+      "sha256": "e31bbd507daa0e5f590e11e4dcc8874c9725fba8be43745be86838a93f730c8b"
+    },
+    {
+      "path": "native-header-parity-receipt.json",
+      "bytes": 641,
+      "sha256": "84eff32abab905cfafd0b12d2351e88ca4d9f0e920dd4b5cb5bb190531c7ac60"
+    },
+    {
+      "path": "official-clio-comparison.json",
+      "bytes": 1148,
+      "sha256": "808b017099194310d4c1f80603a47dda13cd2b9d2b2f2fbdb17b72474d4e6b77"
+    },
+    {
+      "path": "official-clio-receipt.json",
+      "bytes": 12302,
+      "sha256": "128d5ada2fd914698a301a3df3fad8a74c74babe490ea85e85035a200401feef"
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+[
+  {
+    "blockNum": 33,
+    "blockId": "000000211b7e773b53576a30619f893252a2a47e23da7b25c090dbe8b0de7655",
+    "transactionId": "a3941b1cb2e85155cd60335a41fcf8b54dbd9d4498b815e548ba5f63734b8df8",
+    "actionOrdinal": 1,
+    "globalSequence": "41",
+    "rawSha256": "da05e1d7e9099dd5340b7533da31d92e988303b76869a085633d1fec0a6177e6",
+    "rawHex": "e5c1c3060000000000eab0c70000001fe2c1f3d2f01fc5c42cb0b3253cd0f3282dad838bdb1be9d0e8750be3722c02806786c3c408e87e3a0397641fbafd3cd0e5fcb19f40466860b608b0921c816b9271c2fd65f43976af279f72ee07da0bb2beb7fb151d0d95feb060bcf01f00000001000000",
+    "nativeKind": "wire.sysio.onblock.v1",
+    "expectedValue": {
+      "header": {
+        "timestamp": "2026-10-19T18:50:26.500",
+        "producer": "sysio",
+        "previous": "0000001fe2c1f3d2f01fc5c42cb0b3253cd0f3282dad838bdb1be9d0e8750be3",
+        "transaction_mroot": "722c02806786c3c408e87e3a0397641fbafd3cd0e5fcb19f40466860b608b092",
+        "finality_mroot": "1c816b9271c2fd65f43976af279f72ee07da0bb2beb7fb151d0d95feb060bcf0",
+        "qc_claim": {
+          "block_num": 31,
+          "is_strong_qc": 1
+        },
+        "new_finalizer_policy_diff": null,
+        "new_proposer_policy_diff": null,
+        "header_extensions": []
+      }
+    },
+    "originalContractCodecError": "Unexpected trailing bytes at offset 115"
+  },
+  {
+    "blockNum": 122,
+    "blockId": "0000007a5dfd9db9416b37ca2df6c67e428daa80d372f39a85bf19eab1efafe5",
+    "transactionId": "30a6dedcf42e682ac47d1f19f8bf34f843485dd23b06734192a10e2e131b1b89",
+    "actionOrdinal": 1,
+    "globalSequence": "166",
+    "rawSha256": "7a1e20b6e3ee9d0a98a69858c70cd0dc18c95fcf406faccbc2b8a4b46511d9c2",
+    "rawHex": "3ec2c3060000000000eab0c700000078890a71a4a94d59b01cdadf02d794ab7a9b18196b010b8c3e73ee002459462fe1419c87ca1b651ce14937d670130623fb58c4d17c19bc3d3006c9f2f25d2bc2df7d0cd25e8887bf9778f723ca446be7e60d7a6114fb55eb490f2c19e178000000010001010000003ec2c30601000008000060ae423ad15b974a00010000000100026befd137585229ebf907b43f69b509b76dba4483ab093b4a685933744821e48d0100010070ae423ad15b974a0001000000010003c4b079bbb360bbcdd1d181903c0a715e8ae9ce38cc82b0b4082411bafc48a7f20100020080ae423ad15b974a0001000000010003147a6dffbc1ee843bb772203dbf70c195ee05f94c91507ec03a5a3a460ad446d0100030090ae423ad15b974a0001000000010003e70666b482bc5c8d8af788660d12d21a2e69f5b8b84469d462ea40f74f0fbb4b01000400a0ae423ad15b974a00010000000100037cc70eec9d23c1b17ddea82b1273b0e383ce132f80b8b654ba29a7a9d3681f7601000500b0ae423ad15b974a00010000000100029bcdd3c01ed3ae92da9616183c33f6df756cafbee95c9b24097dd4b20aed843901000600c0ae423ad15b974a000100000001000275dc2579b198cb894f82ab5dfcc1fb7d8de6887ad4018b383a33db1e390f38cf01000700d0ae423ad15b974a000100000001000321fb134e8bb6e93eb91b531c376acd3f7466f16f39837ceeb78a56b658ff8270010000",
+    "nativeKind": "wire.sysio.onblock.v1",
+    "expectedValue": {
+      "header": {
+        "timestamp": "2026-10-19T18:51:11.000",
+        "producer": "sysio",
+        "previous": "00000078890a71a4a94d59b01cdadf02d794ab7a9b18196b010b8c3e73ee0024",
+        "transaction_mroot": "59462fe1419c87ca1b651ce14937d670130623fb58c4d17c19bc3d3006c9f2f2",
+        "finality_mroot": "5d2bc2df7d0cd25e8887bf9778f723ca446be7e60d7a6114fb55eb490f2c19e1",
+        "qc_claim": {
+          "block_num": 120,
+          "is_strong_qc": 1
+        },
+        "new_finalizer_policy_diff": null,
+        "new_proposer_policy_diff": {
+          "version": 1,
+          "proposal_time": "2026-10-19T18:51:11.000",
+          "remove_indexes": [
+            0
+          ],
+          "insert_indexes": [
+            {
+              "index": 0,
+              "value": {
+                "producer_name": "defproducera",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_5i2THRhGzWnz5qn4XMhqiSP3MhFhbR7EPkUFpQBG4k92p5MGNf",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "index": 1,
+              "value": {
+                "producer_name": "defproducerb",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_8KrhJbrXCE3XMp8YyYPMehWXXTdmkBCQ1fq8QEWXAAzca5KHnh",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "index": 2,
+              "value": {
+                "producer_name": "defproducerc",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_6zFcsMG3kxEYbrLrt5pyXAEytT8SiLTe6JS1YSQPNc8bis8RZa",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "index": 3,
+              "value": {
+                "producer_name": "defproducerd",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_8aykfntNhtw4Jhhmju2pMM2GKJrDd2ozSN4pjFotsQUTNteCBS",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "index": 4,
+              "value": {
+                "producer_name": "defproducere",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_7nBogSpeeAxtiYG2PwDSBPjUiYZtn41mc8Z4gMgQDfwJhzF1N4",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "index": 5,
+              "value": {
+                "producer_name": "defproducerf",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_657A7qtXrVfvGcWRcn6HGqjEpNZa29U9WhU36vh332QpNmGEHs",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "index": 6,
+              "value": {
+                "producer_name": "defproducerg",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_5nPvmMyehm3tqUJY49rt28PPHXfGQN6ujfmLzwYvZcoRNSnEns",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "index": 7,
+              "value": {
+                "producer_name": "defproducerh",
+                "authority": [
+                  "block_signing_authority_v0",
+                  {
+                    "threshold": 1,
+                    "keys": [
+                      {
+                        "key": "PUB_K1_76CXHmtruMKS3AY8LqbgcEPk8VvgS6VCKUnyBqwWLYhK6SVg3M",
+                        "weight": 1
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "header_extensions": []
+      }
+    },
+    "originalContractCodecError": "Unknown crypto suite"
+  },
+  {
+    "blockNum": 397,
+    "blockId": "0000018df60c1c7a93ca2d2a41dee19729509596ba10081d85073eed35a827d3",
+    "transactionId": "6465f29d04ea8013692623bf318f5e49af8e2c6619f57475cad7fc0c9ed60875",
+    "actionOrdinal": 1,
+    "globalSequence": "637",
+    "rawSha256": "267d406b908f6674dfcbfba343364967965408967d761a13dfae51a30b5cd7e7",
+    "rawHex": "51c3c306c0ae423ad15b974a0000018b04631bb2db8ad81c0910084f06693caa35ee38668a61c8c4761f8c82a494410fbc2f7e9d5cfd4d83a4b002c1ee86659c08f4a22705aabf3053bbea403cad79f732a1ee112a4963ff2cb1e5d646527ba34c8ba07167626cfced085e0f8b010000010103000000060000000000000000000000",
+    "nativeKind": "wire.sysio.onblock.v1",
+    "expectedValue": {
+      "header": {
+        "timestamp": "2026-10-19T18:53:28.500",
+        "producer": "defproducerg",
+        "previous": "0000018b04631bb2db8ad81c0910084f06693caa35ee38668a61c8c4761f8c82",
+        "transaction_mroot": "a494410fbc2f7e9d5cfd4d83a4b002c1ee86659c08f4a22705aabf3053bbea40",
+        "finality_mroot": "3cad79f732a1ee112a4963ff2cb1e5d646527ba34c8ba07167626cfced085e0f",
+        "qc_claim": {
+          "block_num": 395,
+          "is_strong_qc": 1
+        },
+        "new_finalizer_policy_diff": {
+          "generation": 3,
+          "threshold": "6",
+          "remove_indexes": [],
+          "insert_indexes": []
+        },
+        "new_proposer_policy_diff": null,
+        "header_extensions": []
+      }
+    },
+    "originalContractCodecError": "Invalid optional presence marker"
+  }
+]

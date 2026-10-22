@@ -1,0 +1,28 @@
+{
+  "runtime": "v24.19.0",
+  "officialReceiptSha256": "128d5ada2fd914698a301a3df3fad8a74c74babe490ea85e85035a200401feef",
+  "matchingPinnedConverter": true,
+  "readOnlyNodeProcessUnchanged": true,
+  "nativeCases": [
+    {
+      "block": 33,
+      "nativeFieldsEqual": true,
+      "nativeOfficialValueEncodesExactOriginal": true,
+      "explicitLosslessBoundaryNormalization": null
+    },
+    {
+      "block": 122,
+      "nativeFieldsEqual": true,
+      "nativeOfficialValueEncodesExactOriginal": true,
+      "explicitLosslessBoundaryNormalization": null
+    },
+    {
+      "block": 397,
+      "nativeFieldsEqual": true,
+      "nativeOfficialValueEncodesExactOriginal": true,
+      "explicitLosslessBoundaryNormalization": "new_finalizer_policy_diff.threshold: safe JSON number 6 -> uint64 decimal string 6"
+    }
+  ],
+  "contractConversions": "All exit zero; two legacy views have wrong header fields and block122 emits an error with no JSON. Exit success alone proves no semantic validity.",
+  "qualification": "Offline official conversions and exact source-codec comparison only; host native-action admission and serving remain unimplemented."
+}
