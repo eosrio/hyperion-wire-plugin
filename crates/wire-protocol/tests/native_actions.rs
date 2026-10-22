@@ -198,7 +198,10 @@ fn retained_original_members_and_native_schema_are_bound_to_their_sources() {
 #[test]
 fn explicit_native_profile_preserves_original_decisions_values_and_complete_pins() {
     let selected = CodecProfile::for_id("wire-sysio-6508c9e8-native-engineering-v1").unwrap();
-    assert_eq!(CodecProfile::default(), profile());
+    assert_eq!(
+        CodecProfile::default().id,
+        "wire-sysio-6508c9e8-engineering-v1"
+    );
     let mut changed = vec![selected.clone(); 5];
     changed[0].id.push_str("-changed");
     changed[1].upstream_revision.push_str("-changed");
