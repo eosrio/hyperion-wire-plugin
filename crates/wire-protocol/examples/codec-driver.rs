@@ -56,6 +56,31 @@ fn run(op: &Value) -> Value {
                 &profile,
             )
         }
+        Some("observe_native_actions") => {
+            hyperion_wire_protocol::codec::native_actions::observe_native_actions(
+                &op["input"],
+                &op["source"],
+                &profile,
+            )
+        }
+        Some("decode_native_value") => {
+            let Some(bytes) = unhex(&op["hex"]) else {
+                return json!({"error": "invalid_value"});
+            };
+            hyperion_wire_protocol::codec::native_actions::decode_native_value(
+                op["nativeKind"].as_str().unwrap_or(""),
+                &bytes,
+                &profile,
+            )
+        }
+        Some("encode_native_value") => {
+            hyperion_wire_protocol::codec::native_actions::encode_native_value(
+                op["nativeKind"].as_str().unwrap_or(""),
+                &op["value"],
+                &profile,
+            )
+            .map(|bytes| json!(hex(&bytes)))
+        }
         _ => panic!("unsupported codec operation"),
     };
     match result {

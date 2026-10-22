@@ -56,6 +56,9 @@ The SDK provider's [native-genesis verifier](docs/native-genesis.md) now checks 
 6508 initial source inventory and returns native ABI facts from the actual testnet fixture.
 Canonical initialization and serving authority remain host responsibilities; this is a Node-only
 genesis verification slice with explicit key-family limits.
+The [native-action source verifier](docs/native-actions.md) adds coordinated Node/Rust handling
+of implicit `onblock` headers independently of deployed contract ABIs. It remains a package-local
+foundation; the provider and descriptor do not activate the new capability.
 The host supplies the canonical ABI deployment view. Worker activation, storage writes, fork
 recovery and native installation remain separate work. See [the codec contract](docs/codecs.md),
 [the primitive contract](docs/primitives.md), [codec fixture provenance](docs/codec-provenance.md)
@@ -102,7 +105,7 @@ records source findings and qualification limits.
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
 Primitive conformance, host integration and release qualification are separate gates. The selected
-new testnet has not been provisioned or qualified by this implementation.
+new testnet supplies engineering captures; full worker, fork and release qualification remain open.
 Licensed under [MIT](LICENSE).
 ## SDK integration
 

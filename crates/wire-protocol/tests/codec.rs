@@ -9,7 +9,9 @@ fn corpus() -> PathBuf {
 }
 fn unhex(text: &str) -> Vec<u8> {
     text.as_bytes()
-        .chunks_exact(2)
+        .as_chunks::<2>()
+        .0
+        .iter()
         .map(|p| u8::from_str_radix(std::str::from_utf8(p).unwrap(), 16).unwrap())
         .collect()
 }
@@ -91,10 +93,10 @@ fn normalize_metadata_ints(value: &mut Value) {
         if let Some(items) = value.get_mut(key).and_then(Value::as_array_mut) {
             for item in items {
                 if key == "error_messages" {
-                    if let Some(v) = item.get_mut("error_code") {
-                        if v.is_number() {
-                            *v = Value::String(v.to_string());
-                        }
+                    if let Some(v) = item.get_mut("error_code")
+                        && v.is_number()
+                    {
+                        *v = Value::String(v.to_string());
                     }
                 } else if let Some(members) = item.get_mut("values").and_then(Value::as_array_mut) {
                     for m in members {

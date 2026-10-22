@@ -1,5 +1,5 @@
 import {readFile} from 'node:fs/promises';
-import {decodeWireAbi, encodeWireAbi, createWireValueCodec, decodeWireShipDeltas, resolveCodecProfile, WireCodecError} from '../dist/index.js';
+import {decodeWireAbi, encodeWireAbi, createWireValueCodec, createWireNativeActions, decodeWireShipDeltas, resolveCodecProfile, WireCodecError} from '../dist/index.js';
 import {createProtocolProvider} from '../dist/provider.js';
 import {fromHex} from '../dist/codec/binary.js';
 
@@ -22,6 +22,25 @@ const output = input.map(operation => {
       case 'decodeValue': result = createWireValueCodec(operation.abi, profile).decode(operation.typeName, bytes()); break;
       case 'decodeDeltas': result = decodeWireShipDeltas(operation.abi, bytes(), profile); break;
       case 'encodeValue': result = Buffer.from(createWireValueCodec(operation.abi, profile).encode(operation.typeName, operation.value)).toString('hex'); break;
+      case 'decode_native_value': result = createWireNativeActions(profile).decodeValue(operation.nativeKind, bytes()); break;
+      case 'encode_native_value': result = Buffer.from(createWireNativeActions(profile).encodeValue(operation.nativeKind, operation.value)).toString('hex'); break;
+      case 'observe_native_actions': {
+        const value = operation.input;
+        // Translate only the documented JSON transport. Never drop unknown keys
+        // or coerce malformed sections into a successful source observation.
+        if (!value || typeof value !== 'object' || Array.isArray(value)
+          || Object.keys(value).sort().join(',') !== 'blockHex,schemaJson,tracesHex') {
+          throw new WireCodecError('invalid_value', 'Invalid native input fields');
+        }
+        for (const name of ['blockHex', 'tracesHex']) {
+          if (typeof value[name] !== 'string' || value[name].length % 2 || !/^[0-9a-f]*$/i.test(value[name])) {
+            throw new WireCodecError('invalid_value', 'Invalid native input hex');
+          }
+        }
+        result = createWireNativeActions(profile).observe({schemaJson: value.schemaJson,
+          block: fromHex(value.blockHex), traces: fromHex(value.tracesHex)}, operation.source);
+        break;
+      }
       case 'observe_block_abi': {
         const value = operation.input;
         const accountRows = Array.isArray(value?.accountRows)

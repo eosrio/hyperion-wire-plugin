@@ -5,6 +5,7 @@
 
 mod binary;
 mod metadata;
+pub mod native_actions;
 pub mod observations;
 mod protobuf;
 mod scalar;
