@@ -12,6 +12,10 @@ an exact source revision, the 2025 epoch/500 ms slot interval and whether `slug_
 builtin string or an ABI-declared struct. Never infer this from a table or value spelling.
 Final launch pins remain pending.
 
+`wire-sysio-6508c9e8-native-engineering-v1` uses the same complete 6508 codec parameters while
+requiring explicit native action interface 1 admission through the provider descriptor. This new
+engineering profile preserves the original default and both existing IDs. It is not a launch pin.
+
 Node exports `decodeWireAbi`, `encodeWireAbi` and `createWireValueCodec`. Rust exposes the
 equivalent `codec::{decode_abi, encode_abi, decode_value, encode_value}` functions with an
 explicit `CodecProfile`. Inputs/outputs are bytes and JSON values. Both components retain

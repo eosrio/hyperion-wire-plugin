@@ -76,10 +76,11 @@ const node = artifact('wire-node-codec', 'compiled-javascript-engineering', [
   'package.json', 'protocol-profile.json',
 ]);
 const rust = artifact('wire-rust-codec', 'source-only-engineering', ['Cargo.toml', 'Cargo.lock', 'protocol-profile.json', ...walk('crates')]);
-const {codecProfiles} = await import('../dist/profiles.js');
+const {codecProfiles, nativeActionProfileId} = await import('../dist/profiles.js');
 writeFileSync(join(root, 'dist/protocol-provider.json'), json({interfaceVersion: 1,
   manifest: {schemaVersion: 1, package: pkg.name, version: pkg.version, kind: 'protocol',
     compatibility: {hyperion: '4.0.7 || >=4.5.0-0 <4.6.0', sdk: '0.0.0-dev.1'}},
-  profiles: codecProfiles.map(profile => ({id: profile.id, components: [node, rust]})),
+  profiles: codecProfiles.map(profile => ({id: profile.id, components: [node, rust],
+    ...(profile.id === nativeActionProfileId ? {nativeActions: {interfaceVersion: 1}} : {})})),
 }));
 if (sourceModified) console.warn('Development artifacts contain uncommitted source changes; hosts must reject them for activation.');

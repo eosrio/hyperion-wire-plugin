@@ -72,7 +72,7 @@ try {
   assert.equal(JSON.parse(readFileSync(join(installed, 'package.json'), 'utf8')).private, true);
   writeFileSync(join(stage, 'consumer.mjs'), `
 import assert from 'node:assert/strict';
-import {slotToUnixMilliseconds, unixMillisecondsToSlot, normalizeKvRecord, createWireValueCodec, createWireShipCodec, createWireNativeActions, resolveCodecProfile, encodeWireAbi, decodeWireAbi} from '@eosrio/hyperion-wire-plugin';
+import {slotToUnixMilliseconds, unixMillisecondsToSlot, normalizeKvRecord, createWireValueCodec, createWireShipCodec, createWireNativeActions, nativeActionProfileId, resolveCodecProfile, encodeWireAbi, decodeWireAbi} from '@eosrio/hyperion-wire-plugin';
 import {createProtocolProvider} from '@eosrio/hyperion-wire-plugin/provider';
 import descriptor from '@eosrio/hyperion-wire-plugin/protocol-provider.json' with {type: 'json'};
 import {readFileSync} from 'node:fs';
@@ -96,7 +96,16 @@ for (const component of descriptor.profiles[0].components) {
 }
 assert.equal(createProtocolProvider(descriptor.profiles[0].id).profileId, descriptor.profiles[0].id);
 assert.equal(createProtocolProvider(descriptor.profiles[0].id).nativeActions, undefined);
-assert(descriptor.profiles.every(profile => !Object.hasOwn(profile, 'nativeActions')));
+for (const selected of descriptor.profiles) {
+  const provider = createProtocolProvider(selected.id);
+  if (selected.id === nativeActionProfileId) {
+    assert.deepEqual(selected.nativeActions, {interfaceVersion: 1});
+    assert.equal(provider.nativeActions.interfaceVersion, 1);
+  } else {
+    assert.equal(Object.hasOwn(selected, 'nativeActions'), false);
+    assert.equal(Object.hasOwn(provider, 'nativeActions'), false);
+  }
+}
 const nativeRoot = new URL('fixtures/codec/native-onblock-6508-20261022/', installedRoot);
 const nativeManifest = JSON.parse(readFileSync(new URL('manifest.json', nativeRoot)));
 for (const member of nativeManifest.members) {
@@ -106,9 +115,9 @@ for (const member of nativeManifest.members) {
 }
 const nativeSchema = readFileSync(new URL(nativeManifest.schema.path, nativeRoot));
 assert.equal(createHash('sha256').update(nativeSchema).digest('hex'), nativeManifest.schema.sha256);
-const nativeProfile = resolveCodecProfile(nativeManifest.profileId);
+const nativeProfile = resolveCodecProfile(nativeActionProfileId);
 const nativeShip = createWireShipCodec(JSON.parse(nativeSchema), nativeProfile);
-const native = createWireNativeActions(nativeProfile);
+const native = createProtocolProvider(nativeProfile.id).nativeActions;
 for (const expected of JSON.parse(readFileSync(new URL('expected.json', nativeRoot)))) {
   const [, result] = nativeShip.decodeResult(readFileSync(new URL('block-' + String(expected.blockNum).padStart(6, '0') + '.bin', nativeRoot)));
   const source = {chainId:nativeManifest.chainId,blockNum:expected.blockNum,blockId:expected.blockId,previousBlockId:result.prev_block.block_id};
@@ -117,6 +126,9 @@ for (const expected of JSON.parse(readFileSync(new URL('expected.json', nativeRo
     {origin:{transactionId:expected.transactionId,actionOrdinal:1,rawSha256:expected.rawSha256},kind:'native',nativeKind:expected.nativeKind});
   assert.deepEqual(native.decodeValue(expected.nativeKind,Buffer.from(expected.rawHex,'hex')),expected.expectedValue);
   assert.equal(Buffer.from(native.encodeValue(expected.nativeKind,expected.expectedValue)).toString('hex'),expected.rawHex);
+  assert.throws(() => createProtocolProvider(nativeProfile.id).contractCodec.decodeValue(
+    decodeWireAbi(readFileSync(new URL('deployed-sysio-32.abi.bin', nativeRoot)), nativeProfile),
+    'onblock', Buffer.from(expected.rawHex, 'hex')));
 }
 const genesisRoot = new URL('fixtures/codec/native-genesis-6508-20261020/', installedRoot);
 const genesis = JSON.parse(readFileSync(new URL('manifest.json', genesisRoot)));
@@ -125,14 +137,15 @@ for (const member of genesis.members) {
   assert.equal(bytes.length, member.bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'), member.sha256);
 }
-assert.deepEqual(createProtocolProvider(genesis.profileId).verifyNativeGenesis({
+for (const profileId of [genesis.profileId, nativeActionProfileId]) assert.deepEqual(createProtocolProvider(profileId).verifyNativeGenesis({
   schemaJson: readFileSync(new URL('ship.abi.json', genesisRoot), 'utf8'),
   block: readFileSync(new URL('block.bin', genesisRoot)), traces: null,
   deltas: readFileSync(new URL('deltas.bin', genesisRoot)),
 }, genesis.source), JSON.parse(readFileSync(new URL('expected.json', genesisRoot))));
 const observations = JSON.parse(readFileSync(new URL('fixtures/abi-observations/vectors.json', installedRoot)));
 for (const selected of descriptor.profiles) {
-  const vector = observations.vectors.find(vector => vector.profileId === selected.id && vector.expected?.deployments.length > 0);
+  const sourceProfileId = selected.id === nativeActionProfileId ? nativeManifest.profileId : selected.id;
+  const vector = observations.vectors.find(vector => vector.profileId === sourceProfileId && vector.expected?.deployments.length > 0);
   assert(vector, 'Missing packed mutation fixture');
   const input = {traces: vector.input.traces, accountRows: vector.input.accountRows.map(row => ({...row, raw: new Uint8Array(Buffer.from(row.rawHex, 'hex'))}))};
   const provider = createProtocolProvider(selected.id);

@@ -23,7 +23,7 @@ pub const MAX_ELEMENTS: usize = 100_000;
 pub const MAX_DEPTH: usize = 64;
 pub const MAX_NODES: usize = 1_000_000;
 
-/// The two explicitly selected engineering dialects, not final launch pins.
+/// Explicitly selected engineering profiles, not final launch pins.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct CodecProfile {
     pub id: String,
@@ -44,7 +44,7 @@ impl CodecProfile {
     }
     pub fn for_id(id: &str) -> Result<Self, CodecError> {
         let (revision, slug_name_builtin) = match id {
-            "wire-sysio-6508c9e8-engineering-v1" => {
+            "wire-sysio-6508c9e8-engineering-v1" | "wire-sysio-6508c9e8-native-engineering-v1" => {
                 ("6508c9e8f4044df8d5acb082a7af3be6a80cd9a0", true)
             }
             "wire-sysio-7dede884-engineering-v1" => {

@@ -196,6 +196,43 @@ fn retained_original_members_and_native_schema_are_bound_to_their_sources() {
 }
 
 #[test]
+fn explicit_native_profile_preserves_original_decisions_values_and_complete_pins() {
+    let selected = CodecProfile::for_id("wire-sysio-6508c9e8-native-engineering-v1").unwrap();
+    assert_eq!(CodecProfile::default(), profile());
+    let mut changed = vec![selected.clone(); 5];
+    changed[0].id.push_str("-changed");
+    changed[1].upstream_revision.push_str("-changed");
+    changed[2].epoch_milliseconds += 1;
+    changed[3].slot_milliseconds += 1;
+    changed[4].slug_name_builtin = false;
+    for number in [33, 122, 397] {
+        let fixture = fixture(number);
+        let raw = unhex(fixture.expected["rawHex"].as_str().unwrap());
+        assert_eq!(
+            observe_native_actions(&fixture.input, &fixture.source, &selected).unwrap(),
+            observe_native_actions(&fixture.input, &fixture.source, &profile()).unwrap()
+        );
+        assert_eq!(
+            decode_native_value(ONBLOCK_KIND, &raw, &selected).unwrap(),
+            fixture.expected["expectedValue"]
+        );
+        assert_eq!(
+            encode_native_value(ONBLOCK_KIND, &fixture.expected["expectedValue"], &selected)
+                .unwrap(),
+            raw
+        );
+        for invalid in &changed {
+            assert!(observe_native_actions(&fixture.input, &fixture.source, invalid).is_err());
+            assert!(decode_native_value(ONBLOCK_KIND, &raw, invalid).is_err());
+            assert!(
+                encode_native_value(ONBLOCK_KIND, &fixture.expected["expectedValue"], invalid)
+                    .is_err()
+            );
+        }
+    }
+}
+
+#[test]
 fn original_three_cases_use_implicit_native_designations_and_official_value_oracles() {
     let profile = profile();
     let abi = schema();

@@ -5,7 +5,7 @@ import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {deflateSync} from 'node:zlib';
-import {createWireValueCodec, decodeWireAbi, resolveCodecProfile} from '../dist/index.js';
+import {createWireValueCodec, decodeWireAbi, nativeActionProfileId, resolveCodecProfile} from '../dist/index.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const fixtureRoot = new URL('../fixtures/codec/native-onblock-6508-20261022/', import.meta.url);
@@ -125,11 +125,11 @@ function expectedFacts(fixture, candidate = 'native') {
 
 /** Deterministic common corpus. Expectations come from retained or constructed
  * source facts; neither implementation supplies the other's oracle. */
-export function createNativeActionVectors(fixtures = loadNativeFixtures()) {
+export function createNativeActionVectors(fixtures = loadNativeFixtures(), selectedProfileId = profileId) {
   const {codec, cases, deployedAbi} = fixtures;
   const vectors = [];
   const push = (id, operation, expected, category = 'constructed') => vectors.push({id, category,
-    operation: {profileId, ...operation}, expected});
+    operation: {profileId: selectedProfileId, ...operation}, expected});
   const observe = (id, fixture, candidate = 'native', globalError) => push(id,
     {operation: 'observe_native_actions', input: fixture.input, source: fixture.source},
     globalError ? {error: globalError} : {result: expectedFacts(fixture, candidate)});
@@ -316,7 +316,9 @@ function runDriver(command, args, operations) {
 }
 
 export function checkNativeActionParity({rustDriver} = {}) {
-  const vectors = createNativeActionVectors();
+  const fixtures = loadNativeFixtures();
+  const vectors = [profileId, nativeActionProfileId].flatMap(selected =>
+    createNativeActionVectors(fixtures, selected).map(vector => ({...vector, id: `${selected}: ${vector.id}`})));
   const operations = vectors.map(vector => vector.operation);
   const node = runDriver(process.execPath, ['scripts/codec-driver.mjs'], operations);
   const rust = rustDriver ? runDriver(resolve(root, rustDriver), [], operations)

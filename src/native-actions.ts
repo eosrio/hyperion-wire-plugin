@@ -7,7 +7,7 @@ import {CODEC_LIMITS, fromHex, plainObject, toHex} from './codec/binary.js';
 import {codecAssert, WireCodecError} from './codec/errors.js';
 import {createWireValueCodec} from './codec/values.js';
 import {nativeActionAbi} from './native-action-abi.js';
-import {resolveCodecProfile, type WireCodecProfile} from './profiles.js';
+import {nativeActionProfileId, resolveCodecProfile, type WireCodecProfile} from './profiles.js';
 
 const schemaSha256 = '94c5661306467f8c49f22180213e390db10d290be9ebf512fb63314f440ef6f9';
 const nativeKind = 'wire.sysio.onblock.v1';
@@ -84,7 +84,8 @@ function incomplete(origin: ProtocolNativeActionDecision['origin'], error: WireC
 
 /** Source facts and strict values only. The host must independently grant canonical occurrence authority. */
 export function createWireNativeActions(profile: WireCodecProfile): ProtocolNativeActions {
-  const canonical = resolveCodecProfile('wire-sysio-6508c9e8-engineering-v1');
+  const canonical = resolveCodecProfile(profile.id === nativeActionProfileId
+    ? profile.id : 'wire-sysio-6508c9e8-engineering-v1');
   for (const key of Object.keys(canonical) as (keyof WireCodecProfile)[]) {
     codecAssert(profile[key] === canonical[key], 'Native actions require the pinned 6508 profile', 'unsupported_feature');
   }

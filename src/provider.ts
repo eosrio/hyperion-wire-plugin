@@ -5,10 +5,11 @@ import {codecAssert} from './codec/errors.js';
 import {createWireValueCodec} from './codec/values.js';
 import {createWireDeploymentRegistry} from './deployments.js';
 import {normalizeKvRecord} from './primitives.js';
-import {resolveCodecProfile} from './profiles.js';
+import {nativeActionProfileId, resolveCodecProfile} from './profiles.js';
 import {createWireShipCodec} from './ship.js';
 import {observeWireBlockAbi} from './abi-observations.js';
 import {verifyWireNativeGenesis} from './native-genesis.js';
+import {createWireNativeActions} from './native-actions.js';
 
 // Source-pinned SHiP v0 physical KV layout; it is independent of contract ABIs.
 // Tests compare these fields with the captured upstream handshake.
@@ -43,6 +44,7 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
   const rawName = (value: unknown) => new BinaryReader(physical.encode('name', value)).uint(8).toString();
   return {
     profileId: profile.id,
+    ...(profile.id === nativeActionProfileId ? {nativeActions: createWireNativeActions(profile)} : {}),
     contractCodec: {
       decodeAbi: bytes => decodeWireAbi(bytes, profile),
       encodeAbi: abi => encodeWireAbi(abi, profile),
