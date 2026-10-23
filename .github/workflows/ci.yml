@@ -27,7 +27,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@1.88.0
         with:
           components: rustfmt, clippy
-      - run: npm ci
+      - run: npm ci --allow-git=all
+      - name: Verify the pinned checker and embedded TypeScript
+        run: |
+          test "$(bun --version)" = "$(cat .bun-version)"
+          test "$(bun -p process.versions.typescript)" = "$(node -p 'require("./package.json").devDependencies.typescript')"
       - run: npm run typecheck
       - run: python3 fixtures/generate-protocol-vectors.py --check
       - run: npm run check:fixtures
