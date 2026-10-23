@@ -3,7 +3,8 @@ import test from 'node:test';
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {createProtocolProvider} from '../dist/provider.js';
-import {createWireShipCodec, createWireValueCodec, resolveCodecProfile} from '../dist/index.js';
+import {createWireShipCodec, createWireValueCodec, nativeActionProfileId, resolveCodecProfile} from '../dist/index.js';
+import {verifyWireNativeGenesis} from '../dist/native-genesis.js';
 
 const root = new URL('../fixtures/codec/native-genesis-6508-20261020/', import.meta.url);
 const read = name => readFileSync(new URL(name, root));
@@ -54,6 +55,18 @@ test('actual6508 genesis preserves raw absent traces/parent and native ABI barri
   assert.equal(original.traces, null);
   assert.deepEqual([hash(original.block), hash(original.deltas)], before);
   assert.ok(Object.isFrozen(facts) && Object.isFrozen(facts.abiStates) && facts.abiStates.every(Object.isFrozen));
+});
+
+test('native engineering profile preserves the original absent-trace genesis and complete pins', () => {
+  const selected = resolveCodecProfile(nativeActionProfileId);
+  assert.deepEqual(createProtocolProvider(selected.id).verifyNativeGenesis(original, fixture.source), json('expected.json'));
+  for (const key of Object.keys(selected)) {
+    const value = selected[key];
+    const changed = typeof value === 'boolean' ? !value : typeof value === 'number' ? value + 1 : value + '-changed';
+    assert.throws(() => verifyWireNativeGenesis(original, fixture.source, {...selected, [key]: changed}),
+      error => error.code === 'unsupported_feature');
+  }
+  assert.equal(original.traces, null, 'native capability must not invent missing genesis traces');
 });
 
 test('captured result independently retains null SHiP predecessor and absent traces', () => {

@@ -1,7 +1,12 @@
 // Synthetic transport construction with a manual facts oracle. Never import the observer here.
 import assert from 'node:assert/strict';
 import {readFile, writeFile} from 'node:fs/promises';
-import {codecProfiles, createWireValueCodec, encodeWireAbi} from '../../dist/index.js';
+import {resolveCodecProfile, createWireValueCodec, encodeWireAbi} from '../../dist/index.js';
+
+// Preserve the original corpus and its source pins when adding provider capabilities.
+// New profiles exercise these same inputs through separate conformance checks.
+const fixtureProfiles = ['wire-sysio-6508c9e8-engineering-v1', 'wire-sysio-7dede884-engineering-v1']
+  .map(id => resolveCodecProfile(id));
 
 const hex = bytes => Buffer.from(bytes).toString('hex');
 const copy = value => structuredClone(value);
@@ -51,7 +56,7 @@ const deployment = (action, account, abiHex, id = transactionId) => ({
 });
 const emptyFacts = () => ({schemaVersion: 1, actionInputs: [], deployments: [], finalStates: []});
 const vectors = [];
-for (const profile of codecProfiles) {
+for (const profile of fixtureProfiles) {
   const transport = createWireValueCodec(transportAbi, profile);
   const abiA = hex(encodeWireAbi(abiMetadata('old'), profile));
   const abiB = hex(encodeWireAbi(abiMetadata('new'), profile));
@@ -276,7 +281,7 @@ for (const profile of codecProfiles) {
 }
 const output = {schemaVersion: 1,
   description: 'Synthetic ABI observation conformance inputs. Expected source facts are manually specified; no observer output is used. No canonical coverage, ABI applicability, live-chain acceptance or launch qualification is implied.',
-  sourcePins: codecProfiles.map(profile => ({profileId: profile.id, upstreamRevision: profile.upstreamRevision})),
+  sourcePins: fixtureProfiles.map(profile => ({profileId: profile.id, upstreamRevision: profile.upstreamRevision})),
   vectors};
 // Keep the explicit resource-guard arrays on one line instead of adding 200002 noise lines.
 const guardArray = Array(100001).fill(null);

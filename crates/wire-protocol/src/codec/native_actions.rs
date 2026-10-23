@@ -16,7 +16,6 @@ use std::collections::HashSet;
 use std::sync::OnceLock;
 
 pub const ONBLOCK_KIND: &str = "wire.sysio.onblock.v1";
-const PROFILE: &str = "wire-sysio-6508c9e8-engineering-v1";
 const SCHEMA_SHA256: &str = "94c5661306467f8c49f22180213e390db10d290be9ebf512fb63314f440ef6f9";
 const MAX_SCHEMA_BYTES: usize = 65_536;
 const MAX_PACKED_BYTES: usize = 10 * 1024 * 1024;
@@ -42,7 +41,10 @@ fn native_abi() -> &'static Value {
 
 fn profile_supported(profile: &CodecProfile) -> Result<(), CodecError> {
     profile.validate()?;
-    if profile.id != PROFILE {
+    if !matches!(
+        profile.id.as_str(),
+        "wire-sysio-6508c9e8-engineering-v1" | "wire-sysio-6508c9e8-native-engineering-v1"
+    ) {
         return Err(CodecError::unsupported(
             "native actions require the selected 6508 profile",
         ));

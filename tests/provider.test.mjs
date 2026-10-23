@@ -3,7 +3,7 @@ import test from 'node:test';
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {createProtocolProvider} from '../dist/provider.js';
-import {createWireValueCodec, codecProfiles} from '../dist/index.js';
+import {createWireValueCodec, codecProfiles, nativeActionProfileId, resolveCodecProfile} from '../dist/index.js';
 import {validateProtocolSelection} from '@eosrio/hyperion-sdk/protocol';
 
 const root = new URL('../', import.meta.url);
@@ -139,5 +139,29 @@ test('inert descriptors bind both coordinated components to actual package file 
     if (component.runtime === 'node') assert.ok(manifest.files.some(entry => entry.path === 'dist/provider.js'));
     if (component.runtime === 'rust') assert.equal(manifest.kind, 'source-only-engineering');
     for (const entry of manifest.files) assert.equal(createHash('sha256').update(readFileSync(new URL(entry.path, root))).digest('hex'), entry.sha256, entry.path);
+  }
+});
+
+test('only the explicit native profile declares and exposes the required interface', () => {
+  const descriptor = json('dist/protocol-provider.json');
+  assert.deepEqual(codecProfiles.map(profile => profile.id), [
+    'wire-sysio-6508c9e8-engineering-v1', 'wire-sysio-7dede884-engineering-v1', nativeActionProfileId]);
+  assert.equal(resolveCodecProfile().id, codecProfiles[0].id, 'default dialect remains contract-only');
+  for (const profile of descriptor.profiles) {
+    const provider = createProtocolProvider(profile.id);
+    const selection = {profileId: profile.id, components: profile.components,
+      environment: {hyperion: '4.0.7', sdk: '0.0.0-dev.1'}};
+    if (profile.id === nativeActionProfileId) {
+      assert.deepEqual(profile.nativeActions, {interfaceVersion: 1});
+      assert.equal(provider.nativeActions.interfaceVersion, 1);
+      const rejected = validateProtocolSelection(descriptor, selection);
+      assert.equal(rejected.valid, false);
+      assert(rejected.errors.some(error => error.code === 'protocol.unsupported-native-interface'));
+      assert.equal(validateProtocolSelection(descriptor, {...selection, nativeActionInterfaceVersions: [1]}).valid, true);
+    } else {
+      assert.equal(Object.hasOwn(profile, 'nativeActions'), false);
+      assert.equal(Object.hasOwn(provider, 'nativeActions'), false);
+      assert.equal(validateProtocolSelection(descriptor, selection).valid, true);
+    }
   }
 });

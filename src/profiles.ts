@@ -1,4 +1,4 @@
-/** Source-pinned engineering profiles. Neither is a final launch selection. */
+/** Source-pinned engineering profiles. None is a final launch selection. */
 export interface WireCodecProfile {
   readonly id: string;
   readonly upstreamRevision: string;
@@ -6,6 +6,9 @@ export interface WireCodecProfile {
   readonly slotMilliseconds: number;
   readonly slugNameBuiltin: boolean;
 }
+
+/** Native source handling requires an explicit, separately admitted profile. */
+export const nativeActionProfileId = 'wire-sysio-6508c9e8-native-engineering-v1';
 
 export const codecProfiles: readonly WireCodecProfile[] = Object.freeze([
   Object.freeze({
@@ -21,6 +24,13 @@ export const codecProfiles: readonly WireCodecProfile[] = Object.freeze([
     epochMilliseconds: 1735689600000,
     slotMilliseconds: 500,
     slugNameBuiltin: false,
+  }),
+  Object.freeze({
+    id: nativeActionProfileId,
+    upstreamRevision: '6508c9e8f4044df8d5acb082a7af3be6a80cd9a0',
+    epochMilliseconds: 1735689600000,
+    slotMilliseconds: 500,
+    slugNameBuiltin: true,
   }),
 ]);
 

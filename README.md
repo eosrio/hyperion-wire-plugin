@@ -57,8 +57,11 @@ The SDK provider's [native-genesis verifier](docs/native-genesis.md) now checks 
 Canonical initialization and serving authority remain host responsibilities; this is a Node-only
 genesis verification slice with explicit key-family limits.
 The [native-action source verifier](docs/native-actions.md) adds coordinated Node/Rust handling
-of implicit `onblock` headers independently of deployed contract ABIs. It remains a package-local
-foundation; the provider and descriptor do not activate the new capability.
+of implicit `onblock` headers independently of deployed contract ABIs. The explicitly selected
+`wire-sysio-6508c9e8-native-engineering-v1` profile exposes this capability through the normal
+provider and requires native interface 1 in its inert descriptor. Both older profiles remain
+native-inactive, and the default codec profile is unchanged. This engineering selection does not
+activate services or establish launch support.
 The host supplies the canonical ABI deployment view. Worker activation, storage writes, fork
 recovery and native installation remain separate work. See [the codec contract](docs/codecs.md),
 [the primitive contract](docs/primitives.md), [codec fixture provenance](docs/codec-provenance.md)

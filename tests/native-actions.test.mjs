@@ -2,14 +2,16 @@ import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import test from 'node:test';
-import {createWireNativeActions, createWireValueCodec, resolveCodecProfile, WireCodecError} from '../dist/index.js';
+import {createWireNativeActions, createWireValueCodec, nativeActionProfileId, resolveCodecProfile, WireCodecError} from '../dist/index.js';
+import {createProtocolProvider} from '../dist/provider.js';
 import {nativeActionAbi} from '../dist/native-action-abi.js';
 import {CODEC_LIMITS} from '../dist/codec/binary.js';
 import {createNativeActionVectors, hash, loadNativeFixtures, nativeKind} from '../scripts/check-native-actions.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const fixtures = loadNativeFixtures();
-const vectors = createNativeActionVectors(fixtures);
+const vectors = [fixtures.profile.id, nativeActionProfileId].flatMap(profileId =>
+  createNativeActionVectors(fixtures, profileId).map(vector => ({...vector, id: `${profileId}: ${vector.id}`})));
 const native = createWireNativeActions(fixtures.profile);
 const typed = fixture => ({schemaJson: fixture.input.schemaJson,
   block: new Uint8Array(Buffer.from(fixture.input.blockHex, 'hex')),
@@ -82,15 +84,30 @@ test('source APIs reject malformed typed framing before touching accessors or ac
 });
 
 test('native factory rejects every modified profile pin and both value directions reject unknown kinds', () => {
-  for (const key of Object.keys(fixtures.profile)) {
-    const value = fixtures.profile[key];
-    const changed = typeof value === 'boolean' ? !value : typeof value === 'number' ? value + 1 : value + '-changed';
-    assert.throws(() => createWireNativeActions({...fixtures.profile, [key]: changed}), codecError('unsupported_feature'));
+  for (const profile of [fixtures.profile, resolveCodecProfile(nativeActionProfileId)]) {
+    for (const key of Object.keys(profile)) {
+      const value = profile[key];
+      const changed = typeof value === 'boolean' ? !value : typeof value === 'number' ? value + 1 : value + '-changed';
+      assert.throws(() => createWireNativeActions({...profile, [key]: changed}), codecError('unsupported_feature'));
+    }
   }
   const alternate = resolveCodecProfile('wire-sysio-7dede884-engineering-v1');
   assert.throws(() => createWireNativeActions(alternate), codecError('unsupported_feature'));
   assert.throws(() => native.decodeValue('onblock', Buffer.from(fixtures.cases[0].expected.rawHex, 'hex')), codecError('unsupported_feature'));
   assert.throws(() => native.encodeValue('onblock', fixtures.cases[0].expected.expectedValue), codecError('unsupported_feature'));
+});
+
+test('explicit native provider reproduces all original values, complete decisions and strict contract errors', () => {
+  const provider = createProtocolProvider(nativeActionProfileId);
+  assert.equal(provider.nativeActions.interfaceVersion, 1);
+  for (const fixture of fixtures.cases) {
+    assert.deepEqual(provider.nativeActions.observe(typed(fixture), fixture.source), native.observe(typed(fixture), fixture.source));
+    const raw = Buffer.from(fixture.expected.rawHex, 'hex');
+    assert.deepEqual(provider.nativeActions.decodeValue(nativeKind, raw), fixture.expected.expectedValue);
+    assert.deepEqual(Buffer.from(provider.nativeActions.encodeValue(nativeKind, fixture.expected.expectedValue)), raw);
+    assert.throws(() => provider.contractCodec.decodeValue(fixtures.deployedAbi, 'onblock', raw), error =>
+      error instanceof WireCodecError && error.message === fixture.expected.originalContractCodecError);
+  }
 });
 
 test('source observations preserve retained bytes and detach output from later input mutation', () => {

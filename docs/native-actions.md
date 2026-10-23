@@ -5,10 +5,16 @@
 `codec::native_actions::{observe_native_actions, decode_native_value, encode_native_value}`.
 They implement the version-1 contract in
 [SDK #19](https://github.com/eosrio/hyperion-sdk/issues/19) for the pinned
-`wire-sysio-6508c9e8-engineering-v1` profile. The SDK dependency is an exact development commit.
-`createProtocolProvider()` and its inert descriptor do not expose or require native actions yet.
-The host integration in [HAPI #256](https://github.com/eosrio/hyperion-history-api/issues/256)
-must gate every affected consumer before activation.
+6508 source dialect. The SDK dependency is an exact development commit.
+[Wire #19](https://github.com/eosrio/hyperion-wire-plugin/issues/19) adds the separately selected
+`wire-sysio-6508c9e8-native-engineering-v1` profile. Its inert descriptor requires
+`nativeActions: {interfaceVersion: 1}`, and `createProtocolProvider()` exposes the capability only
+for this profile. The host must admit this requirement before importing executable code.
+The existing `wire-sysio-6508c9e8-engineering-v1` and `wire-sysio-7dede884-engineering-v1` IDs
+remain native-inactive through normal provider selection; default codec selection is unchanged.
+The package-local native factory still accepts the original canonical 6508 profile for existing
+fixtures. Both Node and Rust validate every canonical profile field for either supported 6508 ID.
+This does not grant canonical authority or activate a running chain.
 
 The controller's implicit `onblock` action packs the predecessor's native `block_header`.
 The deployed `sysio` contract ABI at block32 describes a different, older header layout.
@@ -53,16 +59,19 @@ cannot poison unrelated contract state.
 
 The [original three-case fixture](../fixtures/codec/native-onblock-6508-20261022/README.md)
 retains source blocks, the actual input ABI and pinned official-clio conversions. Native values
-and exact byte round-trips are checked against that independent oracle. Node and Rust share
+and exact byte round-trips are checked against that independent oracle. The original fixture's
+profile ID, bytes and official converter receipts remain unchanged; the same corpus is explicitly
+selected under both 6508 profiles. Node and Rust share
 malformed-source, identity, user/inline/notification, packed-membership and resource-limit controls.
 The fixture checker binds every retained member; package checks cover emitted declarations and
 the native Rust ABI source as part of one coordinated source bundle.
 
 This foundation does not certify durable native admission, persisted schema-v2 action metadata,
 API/cache/stream reconstruction, live workers, forks or release compatibility. A native-required
-profile must stay inactive until those host paths are integrated and qualified. Existing strict
-contract ABI and native-genesis behavior is preserved. No rs_abieos defect or new rs_abieos release
-is implied by this Wire-specific source mismatch.
+profile requires compatible host admission and separate worker qualification before operator
+activation. The new profile preserves the original genesis verifier's absent traces and ABI facts.
+Existing strict contract ABI and native-genesis behavior is preserved. No rs_abieos defect or
+new rs_abieos release is implied by this Wire-specific source mismatch.
 
 Primary source at `6508c9e8f4044df8d5acb082a7af3be6a80cd9a0`:
 

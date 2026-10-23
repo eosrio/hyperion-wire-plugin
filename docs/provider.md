@@ -5,6 +5,14 @@ The `@eosrio/hyperion-wire-plugin/provider` export provides
 The profile must be explicit. Each provider and SHiP session owns its codec state.
 The existing ABI/value exports remain available.
 
+Select `wire-sysio-6508c9e8-native-engineering-v1` explicitly to request version-1 native action
+source verification and value codecs. Its descriptor declares the requirement before executable
+import; hosts without explicit native interface 1 support must reject selection. The two existing
+engineering profiles expose no native action capability and retain their previous codec behavior.
+All three profiles use the same coordinated artifact manifests. The new profile retains the exact
+6508 source dialect and original genesis verification, including genuinely absent genesis traces.
+See [native action verification](native-actions.md) for source checks and remaining qualification.
+
 Read `@eosrio/hyperion-wire-plugin/protocol-provider.json` before importing the
 factory. It declares the complete Node/Rust component set for each engineering
 profile. The host verifies both artifact manifests and every listed file before

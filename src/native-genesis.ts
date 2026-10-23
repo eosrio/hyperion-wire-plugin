@@ -3,7 +3,7 @@ import type {ProtocolBlockAbiSource, ProtocolNativeGenesisFacts, ProtocolNativeG
 import {BinaryReader, fromHex, integer, plainObject} from './codec/binary.js';
 import {codecAssert} from './codec/errors.js';
 import {createWireValueCodec} from './codec/values.js';
-import type {WireCodecProfile} from './profiles.js';
+import {nativeActionProfileId, resolveCodecProfile, type WireCodecProfile} from './profiles.js';
 import {createWireShipCodec} from './ship.js';
 
 // All constants follow wire-sysio6508c9e8; see docs/native-genesis.md.
@@ -101,8 +101,10 @@ function checkResources(group: (name: string) => Record<string, unknown>[]) {
 /** Pure source-semantic facts only. Host source binding/reverification governs authority. */
 export function verifyWireNativeGenesis(inputValue: ProtocolNativeGenesisInput, sourceValue: ProtocolBlockAbiSource,
                                         profile: WireCodecProfile): ProtocolNativeGenesisFacts {
-  codecAssert(profile.id === 'wire-sysio-6508c9e8-engineering-v1'
-    && profile.upstreamRevision === '6508c9e8f4044df8d5acb082a7af3be6a80cd9a0', 'Unsupported native genesis profile', 'unsupported_feature');
+  const canonical = resolveCodecProfile(profile.id === nativeActionProfileId
+    ? profile.id : 'wire-sysio-6508c9e8-engineering-v1');
+  codecAssert(Object.entries(canonical).every(([key, value]) => profile[key as keyof WireCodecProfile] === value),
+    'Unsupported native genesis profile', 'unsupported_feature');
   const input = plainObject(inputValue), source = plainObject(sourceValue);
   requireEqual(Object.keys(input).sort(), ['block', 'deltas', 'schemaJson', 'traces'], 'input fields');
   requireEqual(Object.keys(source).sort(), ['blockId', 'blockNum', 'chainId', 'previousBlockId'], 'source fields');
