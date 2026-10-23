@@ -8,7 +8,7 @@ versions. Keep public contracts in the SDK and database-native operations in ada
 
 Run the complete checks listed in [README.md](README.md), including emitted Node artifacts,
 the locked Rust component, shared conformance vectors, packed-content validation and local links.
-Keep TypeScript 7.0.2, Bun 1.4.3, Node 22/24 and committed npm/Cargo lockfiles. Primitive conformance
+Keep TypeScript 7.0.2, Bun 1.4.4, Node 22/24 and committed npm/Cargo lockfiles. Primitive conformance
 does not establish host activation or testnet compatibility; add integration evidence with those slices.
 
 Executable plugin upgrades are operator-initiated. Publish package versions and compatibility

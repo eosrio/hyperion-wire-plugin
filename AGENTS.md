@@ -10,3 +10,8 @@ launch compatibility from source inspection or an unselected upstream tag.
 Keep accepted release constraints, implementation status and qualification evidence distinct.
 A scaffold or green documentation check is not a working extension. Add appropriate runtime
 checks with implementation. Do not publish versions or compatibility claims implicitly.
+
+Use TypeScript 7.0.2 and Bun 1.4.4 from `.bun-version` for the complete project check.
+Keep npm installation from the committed lockfile, TypeScript artifact emission, Node 22/24
+checks, and the existing locked Rust/conformance checks. The checker pin does not qualify Bun
+as the production runtime.
