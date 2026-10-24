@@ -9,12 +9,16 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   protocol:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [22, 24]
+        node: [24, 26]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -40,9 +44,13 @@ jobs:
       - name: Check actual application corpus audit and extraction guards without services
         run: python3 -B -m unittest discover -s tests -p 'test_application_capture_audit.py'
       - run: npm test
-      - run: cargo test --locked
-      - run: cargo fmt --all --check
-      - run: cargo clippy --locked --all-targets -- -D warnings
+      # Rust-only checks run once; Node/Rust comparisons below still run on both runtimes.
+      - if: matrix.node == 26
+        run: cargo test --locked
+      - if: matrix.node == 26
+        run: cargo fmt --all --check
+      - if: matrix.node == 26
+        run: cargo clippy --locked --all-targets -- -D warnings
       - run: npm run test:cross
       - run: npm run test:package
   documentation:
