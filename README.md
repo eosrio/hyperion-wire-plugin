@@ -73,7 +73,7 @@ and [source provenance](docs/protocol-sources.md). Host integration is tracked i
 
 Use TypeScript 7.0.2 and Bun 1.4.4 under the
 [shared toolchain policy](https://github.com/eosrio/hyperion-tools/blob/main/docs/architecture/hyperion-4.5-typescript-toolchain.md).
-Node 22/24 execute the emitted artifacts; Bun is the checker. Install from the committed npm
+Node 24/26 execute the emitted artifacts; Bun is the checker. Install from the committed npm
 lockfile and use the committed Cargo lockfile:
 
 ```sh
