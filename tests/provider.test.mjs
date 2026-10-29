@@ -16,6 +16,51 @@ const contractAbi = type => ({version: 'sysio::abi/1.3', tables: [{name: 'record
   key_names: [], key_types: [], type, table_id: 0, secondary_indexes: [{name: 'owner', key_type: 'uint64', table_id: 65535}]}]});
 
 for (const profile of codecProfiles) {
+  test(`${profile.id}: stateful v2 preserves primary/secondary namespace, keys and actual payer`, () => {
+    const provider = createProtocolProvider(profile.id), port = provider.statefulTables;
+    assert.equal(port.interfaceVersion, 2);
+    const transport = createWireValueCodec(handshake, profile);
+    const abi = {...contractAbi('stateful_record'), structs: [{name: 'stateful_record', base: '',
+      fields: [{name: 'id', type: 'uint64'}, {name: 'owner', type: 'name'}]}]};
+    const abiHex = hex(provider.contractCodec.encodeAbi(abi));
+    const deployment = {id: 'constructed-stateful-epoch', from: {blockNum: 10, ordinal: 2},
+      abi: provider.contractCodec.decodeAbi(bytes(abiHex)), abiHex};
+    const context = {chainId: chain, blockId: block, blockNum: 10, ordinal: 2, abiDeployment: deployment};
+    const value = {id: '18446744073709551615', owner: 'alice'};
+    const row = ['contract_row_kv_v0', {code: 'contract', payer: 'payer', table_id: 0,
+      key: '000001', value: hex(provider.contractCodec.encodeValue(deployment.abi, 'stateful_record', value))}];
+    const raw = transport.encode('contract_row_kv', row);
+    const input = {stream: 'contract_row_kv', present: true, raw, value: transport.decode('contract_row_kv', raw)};
+    const snapshot = structuredClone(input);
+    assert.deepEqual(port.normalizeDelta(input, {...context, abiDeployment: undefined}), {kind: 'abi-required', account: 'contract'});
+    const selected = port.normalizeDelta(input, context);
+    assert.deepEqual(selected, {kind: 'table', contract: 'contract', tableName: 'records',
+      identity: {kind: 'kv-primary', tableId: 0, keyHex: '000001'}, payer: 'payer', present: true,
+      source: {chainId: chain, blockId: block, blockNum: 10, ordinal: 2, abiDeployment: deployment.id}, value});
+    assert.equal(Object.hasOwn(selected.identity, 'scope'), false);
+    assert.deepEqual(input.value, snapshot.value); assert.equal(hex(input.raw), hex(snapshot.raw));
+    const secondary = ['contract_index_kv_v0', {code: 'contract', payer: 'otherpayer', table_id: 65535,
+      sec_key: '0000', pri_key: '000001'}];
+    const secondaryRaw = transport.encode('contract_index_kv', secondary);
+    const index = port.normalizeDelta({stream: 'contract_index_kv', present: true, raw: secondaryRaw,
+      value: transport.decode('contract_index_kv', secondaryRaw)}, context);
+    assert.deepEqual(index.identity, {kind: 'kv-secondary', tableId: 65535, secondaryKeyHex: '0000', primaryKeyHex: '000001'});
+    assert.equal(index.payer, 'otherpayer'); assert.equal(index.value, null); assert.equal(index.present, true);
+    assert.equal(Object.hasOwn(index.identity, 'scope'), false);
+    const removedRaw = transport.encode('contract_row_kv', [row[0], {...row[1], value: ''}]);
+    const removed = port.normalizeDelta({...input, present: false, raw: removedRaw,
+      value: transport.decode('contract_row_kv', removedRaw)}, context);
+    assert.deepEqual(removed.identity, selected.identity); assert.equal(removed.value, null); assert.equal(removed.payer, 'payer');
+    assert.equal(removed.present, false);
+    assert.throws(() => port.normalizeDelta({...input, value: [row[0], {...row[1], key: '01'}]}, context), /does not match/);
+    assert.throws(() => port.normalizeDelta(input, {...context, abiDeployment: {...deployment, abi: contractAbi('uint32')}}), /does not match/);
+    for (const stream of ['account', 'permission', 'resource_limits_state']) {
+      const ignored = port.normalizeDelta({stream, present: true, raw: new Uint8Array(), value: {}}, context);
+      assert.equal(ignored.kind, 'ignore'); assert.ok(ignored.reason.length);
+    }
+    assert.throws(() => port.normalizeDelta({stream: 'future_required_stream', present: true, raw: new Uint8Array(), value: {}}, context), /Unsupported required/);
+  });
+
   test(`${profile.id}: SDK normalization binds raw compound identities to an explicit deployment`, () => {
     const provider = createProtocolProvider(profile.id);
     const transport = createWireValueCodec(handshake, profile);

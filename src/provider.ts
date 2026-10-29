@@ -42,7 +42,7 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
   const profile = resolveCodecProfile(profileId);
   const physical = createWireValueCodec(kvAbi, profile);
   const rawName = (value: unknown) => new BinaryReader(physical.encode('name', value)).uint(8).toString();
-  return {
+  const provider: ProtocolProvider<WireAbi> = {
     profileId: profile.id,
     ...(profile.id === nativeActionProfileId ? {nativeActions: createWireNativeActions(profile)} : {}),
     contractCodec: {
@@ -116,5 +116,28 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
           ...('secondaryName' in selected ? {secondaryName: selected.secondaryName, secondaryKeyType: selected.secondaryKeyType} : {}),
         }};
     },
+    statefulTables: {interfaceVersion: 2, normalizeDelta(input, context) {
+      // Reuse the same source-pinned physical decoding, strict raw roundtrip and ABI registry.
+      // The original normalizer's existing history-facing result remains unchanged.
+      const selected = provider.normalizeDelta(input, context);
+      if (selected.kind === 'abi-required' || selected.kind === 'ignore') return selected;
+      if (selected.kind === 'passthrough')
+        return {kind: 'ignore', reason: `Known ${input.stream} stream contains no contract table rows`};
+      const record = plainObject(selected.record);
+      codecAssert(record.kind === 'contract_row_kv' || record.kind === 'contract_index_kv',
+        'Stateful source requires an original physical KV record', 'unsupported_feature');
+      codecAssert(Number.isInteger(record.tableId) && Number(record.tableId) >= 0 && Number(record.tableId) <= 65535,
+        'Original physical table namespace exceeds uint16');
+      const identity = record.kind === 'contract_row_kv'
+        ? {kind: 'kv-primary' as const, tableId: record.tableId as number, keyHex: record.keyHex as string}
+        : {kind: 'kv-secondary' as const, tableId: record.tableId as number,
+          secondaryKeyHex: record.secondaryKeyHex as string, primaryKeyHex: record.primaryKeyHex as string};
+      codecAssert(typeof selected.metadata.code === 'string' && typeof selected.metadata.payer === 'string',
+        'Original KV code/payer are required');
+      return {kind: 'table', contract: selected.metadata.code, tableName: selected.tableName, identity,
+        payer: selected.metadata.payer, present: input.present, source: selected.source,
+        value: identity.kind === 'kv-secondary' ? null : selected.value ?? null};
+    }},
   };
+  return provider;
 }
