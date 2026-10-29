@@ -98,6 +98,10 @@ assert.equal(createProtocolProvider(descriptor.profiles[0].id).profileId, descri
 assert.equal(createProtocolProvider(descriptor.profiles[0].id).nativeActions, undefined);
 for (const selected of descriptor.profiles) {
   const provider = createProtocolProvider(selected.id);
+  assert.equal(provider.statefulTables.interfaceVersion, 2);
+  const ignored = provider.statefulTables.normalizeDelta({stream:'account',present:true,raw:new Uint8Array(),value:{}}, source);
+  assert.equal(ignored.kind, 'ignore'); assert.ok(ignored.reason.length);
+  assert.throws(() => provider.statefulTables.normalizeDelta({stream:'future_required_stream',present:true,raw:new Uint8Array(),value:{}}, source));
   if (selected.id === nativeActionProfileId) {
     assert.deepEqual(selected.nativeActions, {interfaceVersion: 1});
     assert.equal(provider.nativeActions.interfaceVersion, 1);
@@ -154,7 +158,7 @@ for (const selected of descriptor.profiles) {
 }
 `);
   run([join(stage, 'consumer.mjs')], stage);
-  writeFileSync(join(stage, 'consumer.ts'), `import {slotToUnixMilliseconds, createWireNativeActions, resolveCodecProfile} from '@eosrio/hyperion-wire-plugin';\nimport type {ProtocolNativeActions} from '@eosrio/hyperion-sdk/protocol';\nconst timestamp: number = slotToUnixMilliseconds(1);\nconst native: ProtocolNativeActions = createWireNativeActions(resolveCodecProfile());\nconst bytes: Uint8Array = native.encodeValue('wire.sysio.onblock.v1', {});\nvoid [timestamp, bytes];\n`);
+  writeFileSync(join(stage, 'consumer.ts'), `import {slotToUnixMilliseconds, createWireNativeActions, resolveCodecProfile, nativeActionProfileId} from '@eosrio/hyperion-wire-plugin';\nimport {createProtocolProvider} from '@eosrio/hyperion-wire-plugin/provider';\nimport type {ProtocolNativeActions, ProtocolStatefulTablesV2} from '@eosrio/hyperion-sdk/protocol';\nconst timestamp: number = slotToUnixMilliseconds(1);\nconst native: ProtocolNativeActions = createWireNativeActions(resolveCodecProfile());\nconst bytes: Uint8Array = native.encodeValue('wire.sysio.onblock.v1', {});\nconst tables: ProtocolStatefulTablesV2 | undefined = createProtocolProvider(nativeActionProfileId).statefulTables;\nvoid [timestamp, bytes, tables];\n`);
   const require = createRequire(import.meta.url);
   const tsc = join(dirname(require.resolve('typescript/package.json')), 'bin', 'tsc');
   run([tsc, '--noEmit', '--strict', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', join(stage, 'consumer.ts')], stage);
