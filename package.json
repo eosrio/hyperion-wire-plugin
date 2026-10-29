@@ -55,6 +55,6 @@
   },
   "dependencies": {
     "@bufbuild/protobuf": "2.16.0",
-    "@eosrio/hyperion-sdk": "git+https://github.com/eosrio/hyperion-sdk.git#8b29d418d3bacb50d7933d859a010e47446b3231"
+    "@eosrio/hyperion-sdk": "git+https://github.com/eosrio/hyperion-sdk.git#58d68c5cea81490bbb1c9a7736d633d465bab3ef"
   }
 }
