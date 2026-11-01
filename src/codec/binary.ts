@@ -5,15 +5,20 @@ import {codecAssert, WireCodecError, type WireCodecErrorCode} from './errors.js'
 export const CODEC_LIMITS = Object.freeze({maxBytes: 16 * 1024 * 1024, maxItems: 100_000, maxDepth: 64, maxNodes: 1_000_000});
 const utf8Decoder = new TextDecoder('utf-8', {fatal: true, ignoreBOM: true});
 const utf8Encoder = new TextEncoder();
+// Standard JavaScript numeric/string intrinsics are part of this codec's runtime contract.
+const hexByte = Array.from({length: 256}, (_, byte) => byte.toString(16).padStart(2, '0'));
 
 export function fromHex(value: unknown): Uint8Array {
   codecAssert(typeof value === 'string' && value.length % 2 === 0 && /^[0-9a-f]*$/i.test(value), 'Expected complete hexadecimal bytes');
   codecAssert(value.length / 2 <= CODEC_LIMITS.maxBytes, 'Byte input exceeds codec limit', 'limits_exceeded');
-  return Uint8Array.from(value.match(/../g) ?? [], byte => Number.parseInt(byte, 16));
+  // Validation above must precede Buffer decoding, which otherwise truncates invalid input.
+  // Copy to preserve the existing plain Uint8Array return type and independent storage.
+  return new Uint8Array(Buffer.from(value, 'hex'));
 }
 
 export function toHex(value: Uint8Array): string {
-  return Array.from(value, byte => byte.toString(16).padStart(2, '0')).join('');
+  return Array.from(value, byte => typeof byte === 'number' && Number.isInteger(byte) && byte >= 0 && byte <= 255
+    ? hexByte[byte]! : byte.toString(16).padStart(2, '0')).join('');
 }
 
 export function integer(value: unknown, bits: number, signed = false): bigint {
