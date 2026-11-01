@@ -9,7 +9,9 @@ const utf8Encoder = new TextEncoder();
 export function fromHex(value: unknown): Uint8Array {
   codecAssert(typeof value === 'string' && value.length % 2 === 0 && /^[0-9a-f]*$/i.test(value), 'Expected complete hexadecimal bytes');
   codecAssert(value.length / 2 <= CODEC_LIMITS.maxBytes, 'Byte input exceeds codec limit', 'limits_exceeded');
-  return Uint8Array.from(value.match(/../g) ?? [], byte => Number.parseInt(byte, 16));
+  // Validation above must precede Buffer decoding, which otherwise truncates invalid input.
+  // Copy to preserve the existing plain Uint8Array return type and independent storage.
+  return new Uint8Array(Buffer.from(value, 'hex'));
 }
 
 export function toHex(value: Uint8Array): string {
