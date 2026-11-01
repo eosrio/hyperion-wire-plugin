@@ -21,3 +21,22 @@ test('hex decoder retains malformed/type and limit rejection ordering', () => {
   assert.throws(() => fromHex(tooLong), error => error.code === 'limits_exceeded');
   assert.throws(() => fromHex(tooLong.slice(0, -1) + 'z'), error => error.code === 'invalid_value');
 });
+
+
+test('hex encoding preserves iterator ordering, fallback values and abrupt completion', () => {
+  const bytes = Uint8Array.from({length: 256}, (_, index) => index);
+  assert.equal(toHex(bytes), Buffer.from(bytes).toString('hex'));
+  assert.equal(toHex(new Uint8Array()), '');
+  const events = [];
+  const object = {toString(radix) {events.push(`format:${radix}`); return 'object';}};
+  const iterable = {[Symbol.iterator]() {events.push('iterator'); let index = 0; const values = [1, 256, -1, 1.5, NaN, 'z', object];
+    return {next() {events.push(`next:${index}`); return index < values.length ? {value: values[index++], done: false} : {done: true};}};}};
+  assert.equal(toHex(iterable), '01100-11.8NaN0zobject');
+  assert.deepEqual(events, ['iterator', 'next:0', 'next:1', 'next:2', 'next:3', 'next:4', 'next:5', 'next:6', 'format:16', 'next:7']);
+  const marker = new Error('iterator failure');
+  const throws = {[Symbol.iterator]() {return {next() {throw marker;}};}};
+  assert.throws(() => toHex(throws), error => error === marker);
+  const formatted = new Error('format failure'); let closed = false;
+  const invalid = {[Symbol.iterator]() {return {next() {return {value: {toString() {throw formatted;}}, done: false};}, return() {closed = true; return {};}};}};
+  assert.throws(() => toHex(invalid), error => error === formatted); assert.equal(closed, true);
+});
