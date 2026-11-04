@@ -36,3 +36,22 @@ for(const profile of codecProfiles) test(`${profile.id}: exact ABI cache never a
  const cache=createWireCompiledAbiCache(),item=cache.get(abiHex,profile.id);assert(Object.isFrozen(item.abi));assert(Object.isFrozen(item.abi.tables));assert.throws(()=>{item.abi.tables[0].name='forged'});
  assert.throws(()=>createWireDeploymentRegistryCached([], {get(){return {abi:make(1)}}}),/Unrecognized compiled ABI cache/);
 });
+
+test('compiled ABI cache retains exact hits, updates LRU, evicts at eight and separates profiles',()=>{
+ const profile=codecProfiles[0],other=codecProfiles[1];
+ const provider=createProtocolProvider(profile.id),cache=createWireCompiledAbiCache();
+ const abiHex=i=>hex(provider.contractCodec.encodeAbi({version:'sysio::abi/1.3',tables:[{name:'records'+i,index_type:'',key_names:[],key_types:[],type:'uint64',table_id:0,secondary_indexes:[]}]}));
+ const first=abiHex(0),original=cache.get(first,profile.id).abi;
+ assert.strictEqual(cache.get(first,profile.id).abi,original,'exact hit must reuse ABI object');
+ const prior=[];for(let i=1;i<=7;i++)prior.push(cache.get(abiHex(i),profile.id).abi);
+ assert.strictEqual(cache.get(first,profile.id).abi,original,'hit refreshes LRU');
+ cache.get(abiHex(8),profile.id);
+ assert.strictEqual(cache.get(first,profile.id).abi,original,'recently touched entry remains');
+ assert.notStrictEqual(cache.get(abiHex(1),profile.id).abi,prior[0],'least recently used entry was evicted');
+ const separate=createWireCompiledAbiCache();const firstObject=separate.get(first,profile.id).abi;
+ for(let i=1;i<=8;i++)separate.get(abiHex(i),profile.id);
+ assert.notStrictEqual(separate.get(first,profile.id).abi,firstObject,'eight additional ABIs evict the first');
+ const byProfile=createWireCompiledAbiCache();const a=byProfile.get(first,profile.id).abi,b=byProfile.get(first,other.id).abi;
+ assert.notStrictEqual(a,b,'profiles cannot share artifacts');
+ assert.strictEqual(byProfile.get(first,profile.id).abi,a);assert.strictEqual(byProfile.get(first,other.id).abi,b);
+});
