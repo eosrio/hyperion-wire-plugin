@@ -1,0 +1,244 @@
+{
+  "kind": "constructed local corpus microbenchmark, not H3 or throughput qualification",
+  "baseCommit": "69a66064c077a405341f5aaf15e84b88b8d86ccb",
+  "candidateCommit": "dd5243780a78847ceba91b67b6194881b5b6dfa0",
+  "platform": "Windows-11-10.0.29698-SP0",
+  "corpusSha256": "e70f33773ba4d7edd6acbeb0f3e2c21a0439abab5f8753599fb06d7cda97324c",
+  "invocation": "node scripts/bench-normalize-delta.mjs from repository root",
+  "rounds": [
+    {
+      "runtime": "node24",
+      "round": 0,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 517.4177,
+      "perSecond": 19326.745103617446,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 0,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 433.6956,
+      "perSecond": 23057.646884127946,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 1,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 440.48879999999997,
+      "perSecond": 22702.05281042333,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 1,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 524.4742,
+      "perSecond": 19066.71481647715,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 2,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 685.8727,
+      "perSecond": 14579.965057655743,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 2,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 445.0303,
+      "perSecond": 22470.380106702847,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 3,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 441.20349999999996,
+      "perSecond": 22665.278040632045,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 3,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 538.9348,
+      "perSecond": 18555.1202112018,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 4,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 531.5250000000001,
+      "perSecond": 18813.790508442686,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node24",
+      "round": 4,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 442.6275,
+      "perSecond": 22592.360393332994,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 0,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 485.3225,
+      "perSecond": 20604.855534206636,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 0,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 410.0206999999999,
+      "perSecond": 24389.012554732,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 1,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 425.65520000000004,
+      "perSecond": 23493.193551964123,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 1,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 600.897,
+      "perSecond": 16641.787194810422,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 2,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 476.7056,
+      "perSecond": 20977.307587743882,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 2,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 412.38480000000004,
+      "perSecond": 24249.19638163191,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 3,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 407.4076,
+      "perSecond": 24545.442942154245,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 3,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 493.67190000000005,
+      "perSecond": 20256.368652945406,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 4,
+      "side": "baseline",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 483.04049999999995,
+      "perSecond": 20702.197848834625,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    },
+    {
+      "runtime": "node26",
+      "round": 4,
+      "side": "candidate",
+      "profile": "wire-sysio-7dede884-engineering-v1",
+      "iterations": 10000,
+      "elapsedMs": 402.7718,
+      "perSecond": 24827.95468798958,
+      "digest": "97a1fdbfa8bf047d70ba49dcfa65024982ab350d5a30d86430cca035fcfbf9cb",
+      "corpus": "constructed 64 kv rows/indexes with pinned Wire69 provider and captured handshake"
+    }
+  ],
+  "summary": {
+    "node24": {
+      "baselineMedianMs": 531.5250000000001,
+      "candidateMedianMs": 441.20349999999996,
+      "medianElapsedReductionPercent": 16.992897794083085,
+      "allOutputDigestsEqual": true
+    },
+    "node26": {
+      "baselineMedianMs": 485.3225,
+      "candidateMedianMs": 410.0206999999999,
+      "medianElapsedReductionPercent": 15.515827104657232,
+      "allOutputDigestsEqual": true
+    }
+  }
+}
