@@ -8,6 +8,20 @@ const utf8Encoder = new TextEncoder();
 // Standard JavaScript numeric/string intrinsics are part of this codec's runtime contract.
 const hexByte = Array.from({length: 256}, (_, byte) => byte.toString(16).padStart(2, '0'));
 
+const typedArrayPrototype = Object.getPrototypeOf(Uint8Array.prototype);
+const byteIterator = Object.getOwnPropertyDescriptor(typedArrayPrototype, Symbol.iterator)?.value;
+// A preloaded iterator override must retain Array.from behavior and must not run at import.
+const byteValues = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'values')?.value;
+const nativeIterator = byteIterator === byteValues && typeof byteIterator === 'function'
+  && Function.prototype.toString.call(byteIterator) === 'function values() { [native code] }';
+const iteratorPrototype = nativeIterator ? Object.getPrototypeOf(byteIterator.call(new Uint8Array())) : null;
+const iteratorNext = iteratorPrototype && Object.getOwnPropertyDescriptor(iteratorPrototype, 'next')?.value;
+const byteBuffer = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'buffer')!.get!;
+const byteOffset = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteOffset')!.get!;
+const byteLength = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteLength')!.get!;
+const resizable = Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'resizable')!.get!;
+const detached = Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'detached')!.get!;
+
 export function fromHex(value: unknown): Uint8Array {
   codecAssert(typeof value === 'string' && value.length % 2 === 0 && /^[0-9a-f]*$/i.test(value), 'Expected complete hexadecimal bytes');
   codecAssert(value.length / 2 <= CODEC_LIMITS.maxBytes, 'Byte input exceeds codec limit', 'limits_exceeded');
@@ -17,6 +31,17 @@ export function fromHex(value: unknown): Uint8Array {
 }
 
 export function toHex(value: Uint8Array): string {
+  if (nativeIterator && iteratorPrototype && iteratorNext && ArrayBuffer.isView(value) && Object.getPrototypeOf(value) === Uint8Array.prototype
+      && !Object.hasOwn(value, Symbol.iterator)
+      && !Object.hasOwn(Uint8Array.prototype, Symbol.iterator)
+      && Object.getOwnPropertyDescriptor(typedArrayPrototype, Symbol.iterator)?.value === byteIterator
+      && Object.getOwnPropertyDescriptor(iteratorPrototype, 'next')?.value === iteratorNext) {
+    // Intrinsic getters ignore shadowing properties that Array.from would not read.
+    const buffer: ArrayBufferLike = byteBuffer.call(value);
+    if (buffer instanceof ArrayBuffer && !resizable.call(buffer) && !detached.call(buffer)) {
+      return Buffer.from(buffer, byteOffset.call(value), byteLength.call(value)).toString('hex');
+    }
+  }
   return Array.from(value, byte => typeof byte === 'number' && Number.isInteger(byte) && byte >= 0 && byte <= 255
     ? hexByte[byte]! : byte.toString(16).padStart(2, '0')).join('');
 }
