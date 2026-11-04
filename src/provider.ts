@@ -3,7 +3,7 @@ import {decodeWireAbi, encodeWireAbi, type WireAbi} from './codec/abi.js';
 import {BinaryReader, fromHex, plainObject, toHex} from './codec/binary.js';
 import {codecAssert} from './codec/errors.js';
 import {createWireValueCodec} from './codec/values.js';
-import {createWireDeploymentRegistry} from './deployments.js';
+import {createWireCompiledAbiCache, createWireDeploymentRegistryCached} from './deployments.js';
 import {normalizeKvRecord} from './primitives.js';
 import {nativeActionProfileId, resolveCodecProfile} from './profiles.js';
 import {createWireShipCodec} from './ship.js';
@@ -41,6 +41,7 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
   codecAssert(typeof profileId === 'string' && profileId.length > 0, 'An explicit Wire profile is required', 'unsupported_feature');
   const profile = resolveCodecProfile(profileId);
   const physical = createWireValueCodec(kvAbi, profile);
+  const compiledAbis = createWireCompiledAbiCache();
   const rawName = (value: unknown) => new BinaryReader(physical.encode('name', value)).uint(8).toString();
   const provider: ProtocolProvider<WireAbi> = {
     profileId: profile.id,
@@ -105,8 +106,8 @@ export function createProtocolProvider(profileId: string): ProtocolProvider<Wire
       if (!deployment) return {kind: 'abi-required', account: row.code as string};
       codecAssert(toHex(encodeWireAbi(deployment.abi, profile)) === toHex(fromHex(deployment.abiHex)),
         'Selected ABI metadata does not match the supplied deployment bytes', 'invalid_abi');
-      const registry = createWireDeploymentRegistry([{id: deployment.id, chainId: context.chainId, contract: normalized.record.code,
-        from: deployment.from, ...(deployment.until ? {until: deployment.until} : {}), abiHex: deployment.abiHex, profileId: profile.id}]);
+      const registry = createWireDeploymentRegistryCached([{id: deployment.id, chainId: context.chainId, contract: normalized.record.code,
+        from: deployment.from, ...(deployment.until ? {until: deployment.until} : {}), abiHex: deployment.abiHex, profileId: profile.id}], compiledAbis);
       const selected = registry.decodeKvRecord(normalized.record, source);
       return {kind: 'record', identity: selected.identity, record: selected.record, source: selected.source,
         tableName: selected.tableName, ...('value' in selected ? {value: selected.value} : {}), metadata: {

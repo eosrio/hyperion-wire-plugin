@@ -28,13 +28,56 @@ function compare(left: WirePosition, right: WirePosition): number {
   return left.blockNum === right.blockNum ? left.ordinal - right.ordinal : left.blockNum - right.blockNum;
 }
 
+const compiledCaches = new WeakSet<object>();
+function freezeAbi<T>(value: T): T {
+  if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) freezeAbi(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+// Caches only immutable ABI-derived artifacts, never deployment authority or selection.
+// Oversized entries use the original uncached path; decoding errors are never cached.
+export function createWireCompiledAbiCache() {
+  const entries = new Map<string, {abi: WireAbi; codec?: ReturnType<typeof createWireValueCodec>}>();
+  const cache = Object.freeze({
+    get(abiHex: string, profileId: string) {
+      const profile = resolveCodecProfile(profileId);
+      const bytes = fromHex(abiHex);
+      const canonical = toHex(bytes);
+      const key = profile.id + ':' + canonical;
+      const eligible = bytes.length <= 64 * 1024;
+      let artifact = eligible ? entries.get(key) : undefined;
+      if (artifact) { entries.delete(key); entries.set(key, artifact); }
+      else {
+        artifact = {abi: freezeAbi(decodeWireAbi(bytes, profile))};
+        if (eligible) {
+          if (entries.size >= 8) entries.delete(entries.keys().next().value!);
+          entries.set(key, artifact);
+        }
+      }
+      const current = artifact;
+      return {abi: current.abi, abiHex: canonical, decode: (type: string, value: Uint8Array) =>
+        (current.codec ??= createWireValueCodec(current.abi, profile)).decode(type, value)};
+    },
+  });
+  compiledCaches.add(cache);
+  return cache;
+}
+type CompiledAbiCache = ReturnType<typeof createWireCompiledAbiCache>;
+
 /**
  * A snapshot of deployments supplied by the host's canonical view. This class
  * checks scope and interval selection; it does not prove that view is canonical.
  * Missing, overlapping, or mismatched selections never fall back to a head ABI.
  */
 export function createWireDeploymentRegistry(inputs: readonly WireAbiDeployment[]) {
+  return createWireDeploymentRegistryCached(inputs);
+}
+/** Internal provider path; package entry points retain the public registry interface. */
+export function createWireDeploymentRegistryCached(inputs: readonly WireAbiDeployment[], cache?: CompiledAbiCache) {
   codecAssert(Array.isArray(inputs) && inputs.length <= 100_000, 'Invalid deployment collection', 'invalid_abi');
+  codecAssert(!cache || compiledCaches.has(cache), 'Unrecognized compiled ABI cache', 'invalid_abi');
   const deployments = inputs.map(entry => {
     const value = plainObject(entry, 'invalid_abi');
     codecAssert(typeof value.id === 'string' && value.id.length > 0 && hex64(value.chainId), 'Invalid deployment scope', 'invalid_abi');
@@ -45,8 +88,10 @@ export function createWireDeploymentRegistry(inputs: readonly WireAbiDeployment[
     const from = position(value.from);
     const until = value.until === undefined ? undefined : position(value.until);
     codecAssert(!until || compare(from, until) < 0, 'Empty deployment interval', 'invalid_abi');
+    const compiled = cache?.get(toHex(abiBytes), profile.id);
     return {id: value.id, chainId: value.chainId as string, contract: value.contract,
-      from, until, profile, abiHex: toHex(abiBytes), abi: decodeWireAbi(abiBytes, profile)};
+      from, until, profile, abiHex: compiled?.abiHex ?? toHex(abiBytes), abi: compiled?.abi ?? decodeWireAbi(abiBytes, profile),
+      decode: compiled?.decode};
   });
   codecAssert(new Set(deployments.map(entry => entry.id)).size === deployments.length, 'Duplicate deployment identity', 'invalid_abi');
   function select(record: KvRecord, source: KvSource) {
@@ -79,7 +124,7 @@ export function createWireDeploymentRegistry(inputs: readonly WireAbiDeployment[
       // A removed row may carry no value. Its complete physical identity and
       // deployment mapping are still retained; key order encoding stays opaque.
       return normalized.record.kind === 'contract_row_kv' && normalized.record.present
-        ? {...result, value: createWireValueCodec(selected.abi, selected.profile).decode(table.type, fromHex(normalized.record.valueHex))}
+        ? {...result, value: selected.decode ? selected.decode(table.type, fromHex(normalized.record.valueHex)) : createWireValueCodec(selected.abi, selected.profile).decode(table.type, fromHex(normalized.record.valueHex))}
         : result;
     },
   };
