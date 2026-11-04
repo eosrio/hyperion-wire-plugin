@@ -20,6 +20,11 @@ for(const profile of codecProfiles) test(`${profile.id}: exact ABI cache never a
  assert.throws(()=>provider.normalizeDelta({...input,value:[row[0],{...row[1],key:'01'}]},ctx),/does not match/);
  assert.throws(()=>provider.normalizeDelta(input,{...ctx,abiDeployment:{...deployment,abi:make(1)}}),/does not match/);
  assert.throws(()=>provider.normalizeDelta(input,{...ctx,abiDeployment:{...deployment,abiHex:'00'}}));
+ const shortRow=[row[0],{...row[1],value:'ff'}];const shortRaw=physical.encode('contract_row_kv',shortRow);
+ const invalidValue={...input,raw:shortRaw,value:physical.decode('contract_row_kv',shortRaw)};
+ for(let i=0;i<2;i++) { assert.throws(()=>provider.normalizeDelta(invalidValue,ctx)); assert.throws(()=>provider.normalizeDelta(input,{...ctx,ordinal:5}),/Missing ABI deployment/); assert.deepEqual(provider.normalizeDelta(input,ctx),first); }
+ const largeAbi={...make(),abi_extensions:[[0,'ab'.repeat(66000)]]};const largeBytes=provider.contractCodec.encodeAbi(largeAbi);assert(largeBytes.length>64*1024);
+ const largeCache=createWireCompiledAbiCache(),largeHex=hex(largeBytes);assert.notStrictEqual(largeCache.get(largeHex,profile.id).abi,largeCache.get(largeHex,profile.id).abi);
  const second=provider.normalizeDelta(input,{...ctx,blockId:'c'.repeat(64),abiDeployment:{...deployment,id:'second'}});assert.equal(second.source.abiDeployment,'second');assert.equal(second.source.blockId,'c'.repeat(64));
  // Exceed the eight-entry bound with distinct valid ABIs, then revisit the first.
  for(let i=0;i<10;i++) { const changed=make();changed.tables[0].name='records'+i;

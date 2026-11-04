@@ -37,7 +37,7 @@ function freezeAbi<T>(value: T): T {
   return value;
 }
 // Caches only immutable ABI-derived artifacts, never deployment authority or selection.
-// Oversized entries use the original uncached path; decoding errors are never cached.
+// Oversized entries use the original uncached path; ABI parsing errors are never cached.
 export function createWireCompiledAbiCache() {
   const entries = new Map<string, {abi: WireAbi; codec?: ReturnType<typeof createWireValueCodec>}>();
   const cache = Object.freeze({

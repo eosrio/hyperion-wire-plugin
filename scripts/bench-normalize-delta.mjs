@@ -1,8 +1,8 @@
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {performance} from 'node:perf_hooks';
-import {createProtocolProvider} from './dist/provider.js';
-import {createWireValueCodec,codecProfiles} from './dist/index.js';
+import {createProtocolProvider} from '../dist/provider.js';
+import {createWireValueCodec,codecProfiles} from '../dist/index.js';
 const profile=codecProfiles[1],provider=createProtocolProvider(profile.id),transport=createWireValueCodec(JSON.parse(readFileSync('fixtures/codec/ship.abi.json')),profile),hex=b=>Buffer.from(b).toString('hex');
 const abi=provider.contractCodec.decodeAbi(provider.contractCodec.encodeAbi({version:'sysio::abi/1.3',tables:[{name:'records',index_type:'',key_names:[],key_types:[],type:'uint64',table_id:0,secondary_indexes:[{name:'owner',key_type:'uint64',table_id:65535}]}]}));
 const dep={id:'measured-abi',from:{blockNum:10,ordinal:0},abiHex:hex(provider.contractCodec.encodeAbi(abi)),abi};
