@@ -84,3 +84,9 @@ test('pre-import iterator override falls back without executing at import', () =
  const child=spawnSync(process.execPath,['--input-type=module','-e',code],{cwd:process.cwd(),encoding:'utf8'});
  assert.equal(child.status,0,child.stderr);
 });
+
+test('pre-import iterator next override falls back', () => {
+  const code = `const ip=Object.getPrototypeOf(new Uint8Array()[Symbol.iterator]()); const next=ip.next; let enabled=false; ip.next=function(){const r=next.call(this); return enabled&&!r.done&&r.value===1?{...r,value:255}:r}; const m=await import('./dist/codec/binary.js'); const value=new Uint8Array([1,2]); enabled=true; if(m.toHex(value)!=='ff02') throw Error('iterator next contract');`;
+  const child=spawnSync(process.execPath,['--input-type=module','-e',code],{cwd:process.cwd(),encoding:'utf8'});
+  assert.equal(child.status,0,child.stderr);
+});

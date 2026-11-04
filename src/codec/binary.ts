@@ -16,6 +16,8 @@ const nativeIterator = byteIterator === byteValues && typeof byteIterator === 'f
   && Function.prototype.toString.call(byteIterator) === 'function values() { [native code] }';
 const iteratorPrototype = nativeIterator ? Object.getPrototypeOf(byteIterator.call(new Uint8Array())) : null;
 const iteratorNext = iteratorPrototype && Object.getOwnPropertyDescriptor(iteratorPrototype, 'next')?.value;
+const nativeNext = typeof iteratorNext === 'function'
+  && Function.prototype.toString.call(iteratorNext) === 'function next() { [native code] }';
 const byteBuffer = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'buffer')!.get!;
 const byteOffset = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteOffset')!.get!;
 const byteLength = Object.getOwnPropertyDescriptor(typedArrayPrototype, 'byteLength')!.get!;
@@ -31,7 +33,7 @@ export function fromHex(value: unknown): Uint8Array {
 }
 
 export function toHex(value: Uint8Array): string {
-  if (nativeIterator && iteratorPrototype && iteratorNext && ArrayBuffer.isView(value) && Object.getPrototypeOf(value) === Uint8Array.prototype
+  if (nativeIterator && nativeNext && iteratorPrototype && ArrayBuffer.isView(value) && Object.getPrototypeOf(value) === Uint8Array.prototype
       && !Object.hasOwn(value, Symbol.iterator)
       && !Object.hasOwn(Uint8Array.prototype, Symbol.iterator)
       && Object.getOwnPropertyDescriptor(typedArrayPrototype, Symbol.iterator)?.value === byteIterator
