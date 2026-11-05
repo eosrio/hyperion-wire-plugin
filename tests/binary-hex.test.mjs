@@ -40,3 +40,53 @@ test('hex encoding preserves iterator ordering, fallback values and abrupt compl
   const invalid = {[Symbol.iterator]() {return {next() {return {value: {toString() {throw formatted;}}, done: false};}, return() {closed = true; return {};}};}};
   assert.throws(() => toHex(invalid), error => error === formatted); assert.equal(closed, true);
 });
+
+test('hex encoding preserves ordinary views and observable iterator overrides', () => {
+  const bytes = Uint8Array.from({length: 260}, (_, i) => i);
+  const view = bytes.subarray(2, 258);
+  const expected = Array.from(view, b => b.toString(16).padStart(2, '0')).join('');
+  assert.equal(toHex(view), expected);
+  bytes[2] = 77; assert.notEqual(toHex(view), expected);
+  const shadow = new Uint8Array([1, 2]);
+  Object.defineProperty(shadow, 'buffer', {get() {throw new Error('must not access');}});
+  assert.equal(toHex(shadow), '0102');
+  let reads = 0;
+  Object.defineProperty(shadow, Symbol.iterator, {get() {reads++; return function* () {yield 9;};}});
+  assert.equal(toHex(shadow), '09'); assert.equal(reads, 1);
+  class Custom extends Uint8Array { *[Symbol.iterator]() {yield 8;} }
+  assert.equal(toHex(new Custom([1, 2])), '08');
+  assert.equal(toHex({0: 15, 1: 256, length: 2}), '0f100');
+  const shared = new Uint8Array(new SharedArrayBuffer(2)); shared.set([3, 4]);
+  assert.equal(toHex(shared), '0304');
+  const rab = new ArrayBuffer(4, {maxByteLength: 8}); const rabView = new Uint8Array(rab); rabView.set([1,2,3,4]);
+  assert.equal(toHex(rabView), '01020304'); rab.resize(2); assert.equal(toHex(rabView), '0102');
+  const detached = new Uint8Array([1, 2]); structuredClone(detached.buffer, {transfer: [detached.buffer]});
+  assert.throws(() => toHex(detached), TypeError);
+});
+
+test('hex encoding honors changed iterator intrinsics', () => {
+  const tp = Object.getPrototypeOf(Uint8Array.prototype);
+  const original = Object.getOwnPropertyDescriptor(tp, Symbol.iterator);
+  let reads = 0;
+  try {
+    Object.defineProperty(tp, Symbol.iterator, {configurable: true, get() {reads++; return function* () {yield 7;};}});
+    assert.equal(toHex(new Uint8Array([1])), '07'); assert.equal(reads, 1);
+  } finally { Object.defineProperty(tp, Symbol.iterator, original); }
+  const ip = Object.getPrototypeOf(new Uint8Array()[Symbol.iterator]());
+  const next = Object.getOwnPropertyDescriptor(ip, 'next');
+  try { Object.defineProperty(ip, 'next', {configurable: true, value() {return {done: true};}}); assert.equal(toHex(new Uint8Array([1])), ''); }
+  finally { Object.defineProperty(ip, 'next', next); }
+});
+
+import {spawnSync} from 'node:child_process';
+test('pre-import iterator override falls back without executing at import', () => {
+ const code = `const tp=Object.getPrototypeOf(Uint8Array.prototype); let reads=0; Object.defineProperty(tp,Symbol.iterator,{configurable:true,value:function*(){reads++;yield 7}}); const m=await import('./dist/codec/binary.js'); if(reads!==0 || m.toHex(new Uint8Array([1,2]))!=='07' || reads!==1) throw Error('iterator contract');`;
+ const child=spawnSync(process.execPath,['--input-type=module','-e',code],{cwd:process.cwd(),encoding:'utf8'});
+ assert.equal(child.status,0,child.stderr);
+});
+
+test('pre-import iterator next override falls back', () => {
+  const code = `const ip=Object.getPrototypeOf(new Uint8Array()[Symbol.iterator]()); const next=ip.next; let enabled=false; ip.next=function(){const r=next.call(this); return enabled&&!r.done&&r.value===1?{...r,value:255}:r}; const m=await import('./dist/codec/binary.js'); const value=new Uint8Array([1,2]); enabled=true; if(m.toHex(value)!=='ff02') throw Error('iterator next contract');`;
+  const child=spawnSync(process.execPath,['--input-type=module','-e',code],{cwd:process.cwd(),encoding:'utf8'});
+  assert.equal(child.status,0,child.stderr);
+});
