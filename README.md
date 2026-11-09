@@ -69,6 +69,13 @@ and [source provenance](docs/protocol-sources.md). Host integration is tracked i
 [History API #212](https://github.com/eosrio/hyperion-history-api/issues/212) and
 [tools #41](https://github.com/eosrio/hyperion-tools/issues/41).
 
+## State plugin
+
+The [Wire state plugin](state/README.md) is a separate package in `state/`. It installs into a
+Hyperion checkout as `plugins/wire-state`, and its first projection, token balances, holdings and
+supply, answers `get_tokens` and `get_top_holders` through the owner-v2 runtime. It has no files in
+the paths the provider artifacts hash, so the provider's source and emitted code stay byte-identical.
+
 ## Development checks
 
 Use TypeScript 7.0.2 and Bun 1.4.4 under the
@@ -86,6 +93,7 @@ npm run check:fixtures
 python -B -m unittest discover -s tests -p 'test_*capture*.py'
 npm run test:package
 python scripts/check-docs.py
+npx tsc -p state/tsconfig.json && node --test state/tests/*.test.mjs
 ```
 
 The package remains private. No version is published and no compatibility catalog claim is made.

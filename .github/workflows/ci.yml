@@ -53,6 +53,11 @@ jobs:
         run: cargo clippy --locked --all-targets -- -D warnings
       - run: npm run test:cross
       - run: npm run test:package
+      - name: Check the Wire state plugin
+        run: |
+          bun check -p state/tsconfig.json
+          npx tsc -p state/tsconfig.json
+          node --test state/tests/*.test.mjs
   documentation:
     runs-on: ubuntu-latest
     steps:
