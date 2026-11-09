@@ -1,0 +1,2662 @@
+{
+ "description": "Latest sysio.token, sysio.liq and sysio.swap accounts/stat rows from the Wire testnet delta index, each paired with the node get_table_rows answer for the same row.",
+ "chainId": "9ccd94e823fda51363bd4265ad618a909c4985c445078c79f8d030fe9697b71d",
+ "capturedHeadBlock": 3534941,
+ "capturedOn": "2026-11-09",
+ "rows": [
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea0000000000000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 694,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea000000000000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 697,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea00f49a4000000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 485254,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.bond",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea00f49a400000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00145f00000000000000000000000000000000000000000000",
+   "deltaBlock": 637324,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.bond",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea022eb0000000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00365800000000000000000000000000000000000000000000",
+   "deltaBlock": 637144,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.liq",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea0295ba9800000048544551494c",
+   "valueHex": "91ada3a304000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 509435,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.opreg",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "19.925282193 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea0295ba980000004c4f5351494c",
+   "valueHex": "00848bdc04000000094c4951534f4c00595100000000000000000000000000000401000000000000",
+   "deltaBlock": 509460,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.opreg",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "20.880000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea031c354000000048544551494c",
+   "valueHex": "00e40b5402000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 694,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.swap",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "10.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea031c35400000004c4f5351494c",
+   "valueHex": "3838f68d01000000094c4951534f4c00145f00000000000000000000000000000000000000000000",
+   "deltaBlock": 1548939,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.swap",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "6.676691000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea031e9a4000000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 485044,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.synd",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea031e9a400000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00365800000000000000000000000000000000000000000000",
+   "deltaBlock": 637114,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.synd",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00261e990000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 509435,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.2gbot",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00261e99000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00595100000000000000000000000000000000000000000000",
+   "deltaBlock": 509460,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.2gbot",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00360bcf0000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 163385,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.3g2yj",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00360bcf000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00642d00000000000000000000000000000000000000000000",
+   "deltaBlock": 163096,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.3g2yj",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d005cd1040000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1087,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.5toc4",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d005cd104000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1084,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.5toc4",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0076cc6d0000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 125062,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.bhn3h",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0076cc6d000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00110100000000000000000000000000000000000000000000",
+   "deltaBlock": 125062,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.bhn3h",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d007ced010000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1133,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.btvc1",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d007ced01000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1130,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.btvc1",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d008d76390000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 129727,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.cuxlt",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d008d7639000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00590600000000000000000000000000000000000000000000",
+   "deltaBlock": 129396,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.cuxlt",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00ce40ae0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1094,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.gwk5i",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00ce40ae000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1091,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.gwk5i",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00eddc8c0000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 131391,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.ivr4g",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00eddc8c000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00261300000000000000000000000000000000000000000000",
+   "deltaBlock": 131414,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.ivr4g",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00f323cb0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1159,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.jacyf",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00f323cb000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1156,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.jacyf",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00fd1ed40000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 459070,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.jubqo",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00fd1ed4000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c0026130000000000000000000000000000e801000000000000",
+   "deltaBlock": 130858,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.jubqo",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0101c9850000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 158396,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.k3mg5",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0101c985000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00145f00000000000000000000000000007d09000000000000",
+   "deltaBlock": 637324,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.k3mg5",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0116cf380000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 207143,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.lhnts",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0116cf38000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00c43300000000000000000000000000000000000000000000",
+   "deltaBlock": 207217,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.lhnts",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d011b68d50000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 131401,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.lquap",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d011b68d5000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00261300000000000000000000000000000000000000000000",
+   "deltaBlock": 131343,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.lquap",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01232e3f0000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 264274,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.maflz",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01232e3f000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00b33900000000000000000000000000000000000000000000",
+   "deltaBlock": 264301,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.maflz",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d012719d50000048544551494c",
+   "valueHex": "00e1f50500000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 6241,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.miaip",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.100000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d012719d5000004c4f5351494c",
+   "valueHex": "00e1f50500000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 6317,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.miaip",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.100000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d013825960000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1121,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.nkdgq",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01382596000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1117,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.nkdgq",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d013e26820000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1101,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.nwdo2",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d013e2682000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1097,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.nwdo2",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d016292320000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1107,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.q54lm",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01629232000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1104,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.q54lm",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0168a3470000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 485254,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.qlcub",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0168a347000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00595100000000000000000000000000001e08000000000000",
+   "deltaBlock": 484714,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.qlcub",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0169fcbb0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 131578,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.qnz5v",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0169fcbb000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00c64a00000000000000000000000000007707000000000000",
+   "deltaBlock": 456820,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.qnz5v",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01709ea30000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 128278,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.r1bp3",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01709ea3000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00e50400000000000000000000000000000000000000000000",
+   "deltaBlock": 128373,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.r1bp3",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0174c7ab000004c4f5351494c",
+   "valueHex": "0b8016c600000000094c4951534f4c00145f00000000000000000000000000000000000000000000",
+   "deltaBlock": 1548939,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.rdlxf",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "3.323363339 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0179aea10000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 17857,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.rnfp1",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0179aea1000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00595100000000000000000000000000001e08000000000000",
+   "deltaBlock": 483904,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.rnfp1",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0186351b0000048544551494c",
+   "valueHex": "90194a6000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 458899,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.sghcv",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "1.615468944 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0186351b000004c4f5351494c",
+   "valueHex": "00286bee00000000094c4951534f4c00365800000000000000000000000000000600000000000000",
+   "deltaBlock": 637114,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.sghcv",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "4.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0189e6370000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 146605,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.sntlr",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0189e637000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c006d2200000000000000000000000000000000000000000000",
+   "deltaBlock": 146628,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.sntlr",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d018cb2540000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1061,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.stgmo",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d018cb254000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c005d0000000000000000000000000000000900000000000000",
+   "deltaBlock": 17407,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.stgmo",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0194999b0000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 158393,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.tdagv",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0194999b000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00642d00000000000000000000000000000000000000000000",
+   "deltaBlock": 158393,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.tdagv",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0195304a0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1146,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.teg2e",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0195304a000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1143,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.teg2e",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d019b5c550000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1127,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.tqr2p",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d019b5c55000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1124,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.tqr2p",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01a8159b0000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 158041,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.uk5gv",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01a8159b000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00642d00000000000000000000000000000000000000000000",
+   "deltaBlock": 158221,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.uk5gv",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01aaa4ba0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1166,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.upd5u",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01aaa4ba000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1163,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.upd5u",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01ad72c30000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1114,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.uuwq3",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01ad72c3000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1111,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.uuwq3",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01c6955c0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1153,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.wh5ew",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01c6955c000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1149,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.wh5ew",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01c91e310000048544551494c",
+   "valueHex": "0037178900000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 130632,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.wmbll",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "2.300000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01c91e31000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c00960f00000000000000000000000000000300000000000000",
+   "deltaBlock": 130294,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.wmbll",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01d659dc0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 264223,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.xgqiw",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01d659dc000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00145f00000000000000000000000000007b09000000000000",
+   "deltaBlock": 637204,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.xgqiw",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01f86ea30000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1173,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.zkvp3",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01f86ea3000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1169,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.zkvp3",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01f9e43f0000048544551494c",
+   "valueHex": "00e8764817000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1139,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.znt1z",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "100.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01f9e43f000004c4f5351494c",
+   "valueHex": "00e8764817000000094c4951534f4c00000000000000000000000000000000000000000000000000",
+   "deltaBlock": 1136,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.znt1z",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "100.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01fe5b920000048544551494c",
+   "valueHex": "0000000000000000094c495145544800000000000000000000000000000000000000000000000000",
+   "deltaBlock": 18063,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.zwqwm",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "balance": "0.000000000 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01fe5b92000004c4f5351494c",
+   "valueHex": "0000000000000000094c4951534f4c005d0000000000000000000000000000000000000000000000",
+   "deltaBlock": 18093,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "wireno.zwqwm",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "balance": "0.000000000 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "stat",
+   "tableId": 4264,
+   "keyHex": "000048544551494c",
+   "valueHex": "21b33e2108020000094c4951455448004d5548054215000000805045943000004c49514554485000",
+   "deltaBlock": 485014,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.liq",
+    "key": {
+     "symbol_code": "79526777407820"
+    },
+    "value": {
+     "supply": "2233.940751137 LIQETH"
+    }
+   }
+  },
+  {
+   "contract": "sysio.liq",
+   "table": "stat",
+   "tableId": 4264,
+   "keyHex": "00004c4f5351494c",
+   "valueHex": "4335315f08020000094c4951534f4c0000103801f34c000000c03c53943000004c4951534f4c5000",
+   "deltaBlock": 637144,
+   "abiSha256": "90872d56fdfd17b4a67731cff0c7ea3852ae41973176131c31563e79dbc419d1",
+   "node": {
+    "scope": "sysio.liq",
+    "key": {
+     "symbol_code": "83903583963468"
+    },
+    "value": {
+     "supply": "2234.980054339 LIQSOL"
+    }
+   }
+  },
+  {
+   "contract": "sysio.swap",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea0000000000005048544551494c",
+   "valueHex": "00e40b5402000000094c495145544850",
+   "deltaBlock": 694,
+   "abiSha256": "9976866ef44866bddaf4ec9fd5f35099f592658dcbc28c3bee9865a969e3c94f",
+   "node": {
+    "scope": "sysio",
+    "key": {
+     "symbol_code": "22597524914260300"
+    },
+    "value": {
+     "balance": "10.000000000 LIQETHP"
+    }
+   }
+  },
+  {
+   "contract": "sysio.swap",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea000000000000504c4f5351494c",
+   "valueHex": "00e40b5402000000094c4951534f4c50",
+   "deltaBlock": 697,
+   "abiSha256": "9976866ef44866bddaf4ec9fd5f35099f592658dcbc28c3bee9865a969e3c94f",
+   "node": {
+    "scope": "sysio",
+    "key": {
+     "symbol_code": "22601901720815948"
+    },
+    "value": {
+     "balance": "10.000000000 LIQSOLP"
+    }
+   }
+  },
+  {
+   "contract": "sysio.swap",
+   "table": "stat",
+   "tableId": 4264,
+   "keyHex": "005048544551494c",
+   "valueHex": "00e40b5402000000094c495145544850ffffffffffffff3f094c4951455448500040351c03eab0c700e40b5402000000094c4951455448000000b02e02eab0c700e40b5402000000095749524500000000a6823403eab0c71e0000000000000000eab0c70000000000000000094c49514554485001094c4951455448000000b02e02eab0c71e000000b80b0000e80300000000000000e40b5402000000604a7310365e0600",
+   "deltaBlock": 694,
+   "abiSha256": "9976866ef44866bddaf4ec9fd5f35099f592658dcbc28c3bee9865a969e3c94f",
+   "node": {
+    "scope": "sysio.swap",
+    "key": {
+     "symbol_code": "22597524914260300"
+    },
+    "value": {
+     "supply": "10.000000000 LIQETHP",
+     "max_supply": "4611686018.427387903 LIQETHP",
+     "issuer": "sysio.swap"
+    }
+   }
+  },
+  {
+   "contract": "sysio.swap",
+   "table": "stat",
+   "tableId": 4264,
+   "keyHex": "00504c4f5351494c",
+   "valueHex": "00e40b5402000000094c4951534f4c50ffffffffffffff3f094c4951534f4c500040351c03eab0c73838f68d01000000094c4951534f4c000000b02e02eab0c75d03117e03000000095749524500000000a6823403eab0c71e0000000000000000eab0c70000000000000000094c4951534f4c5001094c4951534f4c000000b02e02eab0c71e000000b80b0000e80300000000000043b80c540200000020659e55815e0600",
+   "deltaBlock": 1548939,
+   "abiSha256": "9976866ef44866bddaf4ec9fd5f35099f592658dcbc28c3bee9865a969e3c94f",
+   "node": {
+    "scope": "sysio.swap",
+    "key": {
+     "symbol_code": "22601901720815948"
+    },
+    "value": {
+     "supply": "10.000000000 LIQSOLP",
+     "max_supply": "4611686018.427387903 LIQSOLP",
+     "issuer": "sysio.swap"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "32541000000000000000000045524957",
+   "valueHex": "128f2a13353300000957495245000000",
+   "deltaBlock": 457315,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "ade1",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "56303.047839506 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "32551000000000000000000045524957",
+   "valueHex": "421f10f57e3300000957495245000000",
+   "deltaBlock": 459947,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "adel",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "56620.370370370 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "36692720000000000000000045524957",
+   "valueHex": "e3f621d33a1100000957495245000000",
+   "deltaBlock": 147614,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "atomic",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "18944.347993827 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42ae600000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 149,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducera",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42ae700000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 152,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducerb",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42ae800000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 155,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducerc",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42ae900000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 158,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducerd",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42aea00000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 161,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducere",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42aeb00000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 164,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducerf",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42aec00000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 168,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducerg",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "4a975bd13a42aed00000000000535953",
+   "valueHex": "00e40b54020000000453595300000000",
+   "deltaBlock": 171,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "defproducerh",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "1000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "55317750000000000000000045524957",
+   "valueHex": "2cba8f95814400000957495245000000",
+   "deltaBlock": 615071,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "eosrio",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "75323.350694444 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "91b39080000000000000000045524957",
+   "valueHex": "f622aee4079400000957495245000000",
+   "deltaBlock": 1340249,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "matt1",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "162761.622299382 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea00000000000000000000535953",
+   "valueHex": "008013ae050900000453595300000000",
+   "deltaBlock": 171,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "balance": "992000000.0000 SYS"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea00000000000000000045524957",
+   "valueHex": "4cb4fa9512fada0d0957495245000000",
+   "deltaBlock": 2608431,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "998385225.148576844 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea00f49a40000000000045524957",
+   "valueHex": "04000000000000000957495245000000",
+   "deltaBlock": 637204,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio.bond",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "0.000000004 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea0194d800000000000045524957",
+   "valueHex": "1bfe5c84b04f01000957495245000000",
+   "deltaBlock": 1734953,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio.gov",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "369094.530235931 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea022eb000000000000045524957",
+   "valueHex": "d3c90000000000000957495245000000",
+   "deltaBlock": 1548939,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio.liq",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "0.000051667 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea0295c000000000000045524957",
+   "valueHex": "bc0eba08619f02000957495245000000",
+   "deltaBlock": 1734953,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio.ops",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "738189.060476604 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea031c3540000000000045524957",
+   "valueHex": "5de71cd2050000000957495245000000",
+   "deltaBlock": 1548939,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio.swap",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "24.999946077 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "c7b0ea031e9a40000000000045524957",
+   "valueHex": "cc080000000000000957495245000000",
+   "deltaBlock": 637114,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "sysio.synd",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "0.000002252 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0000000000000000045524957",
+   "valueHex": "00e09962820000000957495245000000",
+   "deltaBlock": 2818696,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "560.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00114da900000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 2561831,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.12nhd",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d001d9e2e00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 146267,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.1vbli",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00261e9900000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 483249,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.2gbot",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00360bcf00000000045524957",
+   "valueHex": "4989d4758f0300000957495245000000",
+   "deltaBlock": 407767,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.3g2yj",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "3914.692069705 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0064385f00000000045524957",
+   "valueHex": "00c817a8040000000957495245000000",
+   "deltaBlock": 1268886,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.aci2z",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "20.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d006c4bcb00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 1301444,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.asmyf",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0076cc6d00000000045524957",
+   "valueHex": "3cdaa7720a2700000957495245000000",
+   "deltaBlock": 1775957,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.bhn3h",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "42925.826759228 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d007acd8f00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 2818696,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.bpngj",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0084095e00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 431207,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.cc2ey",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d008d763900000000045524957",
+   "valueHex": "320418e2912600000957495245000000",
+   "deltaBlock": 1821449,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.cuxlt",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "42408.005338162 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00a1b64a00000000045524957",
+   "valueHex": "005847f80d0000000957495245000000",
+   "deltaBlock": 637561,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.e3hme",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "60.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00b15c7e00000000045524957",
+   "valueHex": "00c817a8040000000957495245000000",
+   "deltaBlock": 1363741,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.f2r3y",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "20.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00c7a47000000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 4368,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.gjd3k",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d00eddc8c00000000045524957",
+   "valueHex": "18309080260b00000957495245000000",
+   "deltaBlock": 469818,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.ivr4g",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "12259.993595928 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0116cf3800000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 205806,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.lhnts",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d011b68d500000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 124953,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.lquap",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01232e3f00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 263195,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.maflz",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d012719d500000000045524957",
+   "valueHex": "f199bc14060000000957495245000000",
+   "deltaBlock": 14127,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.miaip",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "26.117708273 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01437dac00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 1301518,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.oazhg",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d015628a700000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 392822,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.pge5b",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0174c7ab00000000045524957",
+   "valueHex": "00d6117e030000000957495245000000",
+   "deltaBlock": 1548939,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.rdlxf",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "15.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0178b0a400000000045524957",
+   "valueHex": "00000000000000000957495245000000",
+   "deltaBlock": 624435,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.rlg54",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "0.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d017a7bdf00000000045524957",
+   "valueHex": "00c817a8040000000957495245000000",
+   "deltaBlock": 137394,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.royyz",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "20.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0186351b00000000045524957",
+   "valueHex": "00ac23fc060000000957495245000000",
+   "deltaBlock": 455175,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.sghcv",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "30.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0189e63700000000045524957",
+   "valueHex": "c4b68446e61f00000957495245000000",
+   "deltaBlock": 2608431,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.sntlr",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "35073.886041796 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d018b54c800000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 123520,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.sqpac",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d0194999b00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 136728,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.tdagv",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01a5c85400000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 484672,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.ufm2o",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01a8159b00000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 156856,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.uk5gv",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01c91e3100000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 125792,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.wmbll",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "accounts",
+   "tableId": 25660,
+   "keyHex": "e3aea9d01fe5b9200000000045524957",
+   "valueHex": "00e40b54020000000957495245000000",
+   "deltaBlock": 16308,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "wireno.zwqwm",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "balance": "10.000000000 WIRE"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "stat",
+   "tableId": 4264,
+   "keyHex": "00000000005359530000000000535953",
+   "valueHex": "00a0724e18090000045359530000000000a0724e1809000004535953000000000000000000eab0c7",
+   "deltaBlock": 146,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "SYS",
+    "key": {
+     "sym_code": 5462355
+    },
+    "value": {
+     "supply": "1000000000.0000 SYS",
+     "max_supply": "1000000000.0000 SYS",
+     "issuer": "sysio"
+    }
+   }
+  },
+  {
+   "contract": "sysio.token",
+   "table": "stat",
+   "tableId": 4264,
+   "keyHex": "00000000455249570000000045524957",
+   "valueHex": "000064a7b3b6e00d0957495245000000000064a7b3b6e00d09574952450000000000000000eab0c7",
+   "deltaBlock": 390,
+   "abiSha256": "ec6463bed0462df885c37f216508ac08c6bc441bbf2ad52c308fbf466e3a5dfa",
+   "node": {
+    "scope": "WIRE",
+    "key": {
+     "sym_code": 1163020631
+    },
+    "value": {
+     "supply": "1000000000.000000000 WIRE",
+     "max_supply": "1000000000.000000000 WIRE",
+     "issuer": "sysio"
+    }
+   }
+  }
+ ]
+}
